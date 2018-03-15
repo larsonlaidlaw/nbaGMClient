@@ -1,0 +1,33 @@
+.DraftPicks {
+  /* height: 70px; */
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* align-items: center; */
+  box-sizing: border-box;
+  background: #ffffff; /* Old browsers */
+  background: -moz-linear-gradient(top, #ffffff 0%, #c9c9c9 53%, #9ca6a8 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #ffffff 0%,#c9c9c9 53%,#9ca6a8 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #ffffff 0%,#c9c9c9 53%,#9ca6a8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#9ca6a8',GradientType=0 ); /* IE6-9 */
+}
+
+.Nets {
+  background-color: black;
+}
+
+.Celtics {
+  background-color: green;
+}
+
+.Cavaliers {
+  background-color: #6F263D;
+}
+
+
+.picks table {
+  color: #fff;
+  font-size: 9pt;
+  text-align: center;
+}

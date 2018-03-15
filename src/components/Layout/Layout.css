@@ -1,0 +1,12 @@
+.Layout {
+  margin-top: 10px;
+}
+
+.footer {
+  height: 35px;
+  padding-top: 10px;
+  font-size: 9pt;
+  text-align: center;
+  background-color: gold;
+  box-sizing: border-box;
+}

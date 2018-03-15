@@ -1,0 +1,34 @@
+.TeamSelector {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: space-evenly;
+  flex-wrap: wrap;
+  padding: 5px;
+}
+
+.TeamSelectorContainer {
+  display: flex;
+  justify-content: center;
+  background-color: #333;
+}
+
+
+
+@media (max-width: 620px) {
+  .TeamSelector {
+    width: 400px;
+  }
+}
+
+@media (min-width: 820px) {
+  .TeamSelector {
+    min-width: 820px;
+  }
+}
+
+@media (min-width: 940px) {
+  .TeamSelector {
+    min-width: 940px;
+  }
+}

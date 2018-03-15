@@ -1,0 +1,2 @@
+export const LOAD_TEAMS = 'LOAD_TEAMS'
+export const LOAD_TRADE_TEAM_DATA = 'LOAD_TRADE_TEAM_DATA'

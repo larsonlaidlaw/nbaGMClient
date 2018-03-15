@@ -1,0 +1,94 @@
+{
+  "teams" : {
+    "atlanta" : {
+      "nickname" : "hawks"
+    },
+    "boston" : {
+      "nickname" : "celtics"
+    },
+    "brooklyn" : {
+      "nickname" : "nets"
+    },
+    "charlotte" : {
+      "nickname" : "hornets"
+    },
+    "chicago" : {
+      "nickname" : "bulls"
+    },
+    "cleveland" : {
+      "nickname" : "cavaliers"
+    },
+    "dallas" : {
+      "nickname" : "mavericks"
+    },
+    "denver" : {
+      "nickname" : "nuggets"
+    },
+    "detroit" : {
+      "nickname" : "pistons"
+    },
+    "golden_state" : {
+      "nickname" : "warriors"
+    },
+    "houston" : {
+      "nickname" : "rockets"
+    },
+    "indiana" : {
+      "nickname" : "pacers"
+    },
+    "la1" : {
+      "nickname" : "clippers"
+    },
+    "la2" : {
+      "nickname" : "lakers"
+    },
+    "memphis" : {
+      "nickname" : "grizzlies"
+    },
+    "miami" : {
+      "nickname" : "heat"
+    },
+    "milwaukee" : {
+      "nickname" : "bucks"
+    },
+    "minnesota" : {
+      "nickname" : "timberwolves"
+    },
+    "new_orleans" : {
+      "nickname" : "pelicans"
+    },
+    "new_york" : {
+      "nickname" : "knicks"
+    },
+    "ok_city" : {
+      "nickname" : "thunder"
+    },
+    "orlando" : {
+      "nickname" : "magic"
+    },
+    "philadelphia" : {
+      "nickname" : "76ers"
+    },
+    "phoenix" : {
+      "nickname" : "suns"
+    },
+    "portland" : {
+      "nickname" : "blazers"
+    },
+    "sacramento" : {
+      "nickname" : "kings"
+    },
+    "san_antonio" : {
+      "nickname" : "spurs"
+    },
+    "toronto" : {
+      "nickname" : "raptors"
+    },
+    "utah" : {
+      "nickname" : "jazz"
+    },
+    "washington" : {
+      "nickname" : "wizards"
+    }
+  }
+}

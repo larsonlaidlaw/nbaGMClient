@@ -1,0 +1,149 @@
+.Team {
+  flex-grow: 1;
+  flex-basis: 300px;
+  min-width: 300px;
+  max-width: 400px;
+  height: 100%;
+  background-color: orange;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding-bottom: 10px;
+
+}
+
+.Team:first-child {
+  margin-left: 0px;
+}
+
+.Hawks {
+  background-color: #E03A3E
+}
+
+.Celtics {
+  background-color: #008248;
+}
+
+.Nets {
+  background-color: #000000;
+}
+
+.Hornets {
+  background-color: #1D1160;
+}
+
+.Bulls {
+  background-color: #CE1141;
+}
+
+.Cavaliers {
+  background-color: #6F263D;
+}
+
+.Mavericks {
+  background-color: #007DC5;
+}
+
+.Nuggets {
+  background-color: #5091CD;
+}
+
+.Pistons {
+  background-color: #E01E38;
+}
+
+.Warriors {
+  background-color: #243E90;
+}
+
+.Rockets {
+  background-color: #CE1141;
+}
+
+.Pacers {
+  background-color: #FDBB30;
+}
+
+.Clippers {
+  background-color: #ED174C;
+}
+
+.Lakers {
+  background-color: #552583;
+}
+
+.Grizzlies {
+  background-color: #6189B9;
+}
+
+.Heat {
+  background-color: #98002E;
+}
+
+.Bucks {
+  background-color: #00471B;
+}
+
+.Timberwolves {
+  background-color: #005083;
+}
+
+.Pelicans {
+  background-color: #85714D;
+}
+
+.Knicks {
+  background-color: #006BB6;
+}
+
+.Thunder {
+  background-color: #007AC1;
+}
+
+.Magic {
+  background-color: #0B77BD;
+}
+
+.Sixers {
+  background-color: #006BB6;
+}
+
+.Suns {
+  background-color: #1D1160;
+}
+
+.Blazers {
+  background-color: #E13A3E;
+}
+
+.Kings {
+  background-color: #5091CD;
+}
+
+.Spurs {
+  background-color: #000000;
+}
+
+.Raptors {
+  background-color: #CD1141;
+}
+
+.Jazz {
+  background-color: #0C2340;
+}
+
+.Wizards {
+  background-color: #002B5C;
+}
+
+
+
+
+
+
+
+@media (min-width: 600px) {
+  .Team {
+    margin-left: 20px;
+  }
+}

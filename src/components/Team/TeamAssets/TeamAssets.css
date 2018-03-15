@@ -1,0 +1,8 @@
+.Heading {
+  font-size: 9pt;
+  font-weight: bold;
+  padding: 0 10px;
+  background-color: #333;
+  color: #ddd;
+  box-sizing: border-box;
+}

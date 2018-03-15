@@ -1,0 +1,15 @@
+.Team {
+  /* width: 25px; */
+  /* min-width: 25px; */
+  max-width: 50px;
+}
+
+.Team img {
+  width: 100%;
+}
+
+@media (min-width: 940px) {
+  .Team {
+    max-width: 45px;
+  }
+}

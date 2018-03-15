@@ -1,0 +1,20 @@
+.TeamHeader {
+  color: #fff;
+  font-size: 9pt;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.TeamHeader p {
+  margin: 0;
+}
+
+.TeamName {
+  font-size: 10pt;
+  font-weight: bold;
+  margin-bottom: 5px;
+}

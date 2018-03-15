@@ -1,0 +1,45 @@
+{
+  "team" : {
+    "city" : "Cleveland",
+    "nickname" : "Cavaliers",
+    "players" : [
+      {
+        "name" : "Lebron James",
+        "birthday" : "12/23/1984",
+        "contract" : {
+          "start-date" : "7/7/2016",
+          "no-trade" : "true",
+          "stretched" : "false",
+          "waived" : "false",
+          "two-way" : "false",
+          "seasons" : [
+            {
+              "0" : {
+                "guaranteed" : 33000000,
+                "salary" : 33000000,
+                "option" : "none"
+              },
+            },
+            {
+              "1" : {
+                "guaranteed" : 33000000,
+                "salary" : 33000000,
+                "option" : "player"
+              },
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+
+1. Ask how he would do it/structure it.
+2. Having to restart server after every change
+3. Get help with serializers
+3. Get help with controller actions, response object, etc.
+
+rails g model Team city:string nickname:string
+rails g model Player name:string birth_date:date team:references
+rails g model Contract start_date:date no_trade:boolean trade_kicker:int stretched:boolean waived:boolean two_way:boolean player:references
+rails g model Season number:serial year:string guaranteed:int salary:int option:string contract:references
