@@ -9,6 +9,7 @@ import styles from './Team.css'
 let teamAssets
 
 const team = (props) => {
+  // can this be moved to a module?
 
   let classes = [styles.Team]
 
