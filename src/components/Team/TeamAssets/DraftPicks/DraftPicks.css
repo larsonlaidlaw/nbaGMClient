@@ -1,9 +1,7 @@
 .DraftPicks {
   /* height: 70px; */
   padding: 10px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+
   /* align-items: center; */
   box-sizing: border-box;
   background: #ffffff; /* Old browsers */
@@ -11,6 +9,16 @@
   background: -webkit-linear-gradient(top, #ffffff 0%,#c9c9c9 53%,#9ca6a8 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom, #ffffff 0%,#c9c9c9 53%,#9ca6a8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#9ca6a8',GradientType=0 ); /* IE6-9 */
+}
+
+.TeamPicks {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.OtherTeamsPicks {
+
 }
 
 .Nets {

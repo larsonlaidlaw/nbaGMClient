@@ -6,11 +6,9 @@ import styles from './TargetPicks.css'
 const targetPicks = () => (
   <div>
     <div className={styles.TargetPicks}>
-      <DraftPick />
-      <DraftPick />
-      <DraftPick />
-      <DraftPickTeamLogo team='nets' />
-      <DraftPickTeamLogo team='celtics' />
+
+      <DraftPickTeamLogo logo="1"/>
+      <DraftPickTeamLogo logo="14" />
     </div>
     <div className={styles.Summary}>
       <div>2 Players | 4 Picks</div>

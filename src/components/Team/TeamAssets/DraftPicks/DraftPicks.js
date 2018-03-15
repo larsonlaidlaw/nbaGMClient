@@ -6,26 +6,25 @@ import styles from './DraftPicks.css'
 
 const draftPicks = (props) => {
 
+  console.log(props);
+
+  const picks = props.draftpicks.map( pick => {
+    if (pick.team_id === pick.original_team) {
+      return <DraftPick team={props.team} round={pick.round} year={pick.year} />
+    }
+  })
+
+  const otherTeamspicks = props.draftpicks.map( pick => {
+    if (pick.team_id !== pick.original_team) {
+      // console.log(props.draftpicks.original_team);
+      return <DraftPickTeamLogo logo={pick.original_team}/>
+    }
+  })
+
   return (
     <div className={styles.DraftPicks}>
-      <DraftPick team={props.team} ineligible={true} round='1'/>
-      <DraftPick team={props.team} round='1'/>
-      <DraftPick team={props.team} round='1'/>
-      <DraftPick team={props.team} round='1'/>
-      <DraftPick team={props.team} round='1'/>
-      <DraftPick team={props.team} round='1'/>
-      <DraftPick team={props.team} round='1'/>
-      <DraftPick team={props.team} />
-      <DraftPick team={props.team} />
-      <DraftPick team={props.team} />
-      <DraftPick team={props.team} />
-      <DraftPick team={props.team} />
-      <DraftPick team={props.team} />
-      <DraftPick team={props.team} />
-      <DraftPickTeamLogo team='nets' />
-      <DraftPickTeamLogo team='celtics' />
-      <DraftPickTeamLogo team='nets' />
-      <DraftPickTeamLogo team='celtics' />
+      <div className={styles.TeamPicks}>{picks}</div>
+      <div>{otherTeamspicks}</div>
     </div>
   )
 }
