@@ -1,5 +1,4 @@
 import React from 'react'
-import DraftPick from '../../DraftPicks/DraftPick/DraftPick'
 import DraftPickTeamLogo from '../../DraftPicks/DraftPickTeamLogo/DraftPickTeamLogo'
 import styles from './TargetPicks.css'
 

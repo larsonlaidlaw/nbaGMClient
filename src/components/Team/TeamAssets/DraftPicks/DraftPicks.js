@@ -6,19 +6,18 @@ import styles from './DraftPicks.css'
 
 const draftPicks = (props) => {
 
-  console.log(props);
-
   const picks = props.draftpicks.map( pick => {
     if (pick.team_id === pick.original_team) {
-      return <DraftPick team={props.team} round={pick.round} year={pick.year} />
+      return <DraftPick key={pick.id} team={props.team} round={pick.round} year={pick.year} />
     }
+    return null
   })
 
   const otherTeamspicks = props.draftpicks.map( pick => {
     if (pick.team_id !== pick.original_team) {
-      // console.log(props.draftpicks.original_team);
-      return <DraftPickTeamLogo logo={pick.original_team}/>
+      return <DraftPickTeamLogo key={pick.id} logo={pick.original_team}/>
     }
+    return null
   })
 
   return (

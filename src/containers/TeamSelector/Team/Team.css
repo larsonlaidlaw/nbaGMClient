@@ -8,6 +8,10 @@
   width: 100%;
 }
 
+.Team:hover {
+  cursor: pointer;
+}
+
 @media (min-width: 940px) {
   .Team {
     max-width: 45px;

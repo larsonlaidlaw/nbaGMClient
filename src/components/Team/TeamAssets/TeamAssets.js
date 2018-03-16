@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import React from 'react'
 
 
 import Aux from '../../../hoc/Aux'
@@ -15,7 +14,7 @@ const TeamAssets = (props) => (
     <div className={styles.Heading}>Targets</div>
     <TargetAssets />
     <div className={styles.Heading}>Players</div>
-    <Players players={props.team.players}/>
+    <Players players={props.team.players} addPlayerToTrade={props.addPlayerToTrade}/>
     <div className={styles.Heading}>Future Picks</div>
     <DraftPicks team={props.team} draftpicks={props.team.draftpicks}/>
     <div className={styles.Heading}>Trade Exceptions</div>

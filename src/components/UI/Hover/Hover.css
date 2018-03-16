@@ -1,0 +1,24 @@
+.Hover {
+  position: absolute;
+  display: inline;
+  z-index: 99;
+  left: -100px;
+  width: 100px;
+  padding: 2px;
+  border: 1px solid #ddd;
+  border-radius: .25rem;
+  font-size: 9pt;
+  font-family: sans-serif;
+  font-weight: bold;
+  box-sizing: border-box;
+  background: #ffffff; 
+}
+
+.HoverItem {
+  cursor: pointer;
+
+}
+
+.HoverItem:hover {
+  background-color: #eee;
+}

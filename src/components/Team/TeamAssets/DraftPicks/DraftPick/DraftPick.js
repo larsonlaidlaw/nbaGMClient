@@ -133,7 +133,6 @@ const draftPick = (props) => {
 
   let year = props.year.toString().substring(2)
   year = "'" + year
-  console.log(year);
 
   return (
     <div className={classes.join(' ')}>{year} {props.round === 1 ? "1st" : "2nd"}</div>

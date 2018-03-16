@@ -19,7 +19,7 @@ const teamSelector = (state = initialState, action) => {
 
     var found = false;
     for(var i = 0; i < state.tradeTeamData.length; i++) {
-      if (state.tradeTeamData[i].id == selectedTeam.id) {
+      if (state.tradeTeamData[i].id === selectedTeam.id) {
         found = true;
         break;
       }

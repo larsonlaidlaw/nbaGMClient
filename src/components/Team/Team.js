@@ -1,12 +1,10 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import React from 'react'
 
 import TeamHeader from './TeamHeader/TeamHeader'
 import TeamAssets from './TeamAssets/TeamAssets'
 
 import styles from './Team.css'
 
-let teamAssets
 
 const team = (props) => {
   // can this be moved to a module?
@@ -136,7 +134,7 @@ const team = (props) => {
   return (
     <div className={classes.join(' ')}>
       <TeamHeader team={props.team}/>
-      <TeamAssets team={props.team}/>
+      <TeamAssets team={props.team} addPlayerToTrade={props.addPlayerToTrade}/>
     </div>
   )
 }

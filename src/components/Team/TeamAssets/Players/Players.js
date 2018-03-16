@@ -40,8 +40,6 @@ const players = (props) => {
       x = 'Free Agent'
     }
     return x
-
-
   }
 
   const findOption = (player) => {
