@@ -55,7 +55,6 @@ const targetPlayers = (props) => {
     }
     return optionType
   }
-console.log(props);
   let targets = null
   if (props.team.targetAssets) {
     targets = props.team.targetAssets.map(target => {

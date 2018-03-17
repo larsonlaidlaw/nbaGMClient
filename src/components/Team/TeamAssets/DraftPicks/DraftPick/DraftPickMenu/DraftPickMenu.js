@@ -1,20 +1,22 @@
 import React from 'react'
-import styles from './Hover.css'
 import Aux from '../../../../../../hoc/Aux'
 import Backdrop from '../../../../../UI/Backdrop/Backdrop'
+import styles from './DraftPickMenu.css'
 
 
-const hover = (props) => {
+
+const draftPickMenu = (props) => {
   let tradeTeams = 'Add another team to trade.'
 
   if (props.tradeTeams.length > 1) {
     tradeTeams = props.tradeTeams.map( team => {
-      if (team.id !== props.player.team_id) {
+      console.log(team, props);
+      if (team.id !== props.pick.team_id) {
         return (
           <div
             key={team.id}
-            className={styles.HoverItem}
-            onMouseDown={(event)=> props.addPlayerToTrade(props.player, team)}
+            className={styles.MenuItem}
+            onMouseDown={(event)=> props.addDraftPickToTrade(props.pick, team, props.pick.original_team)}
             >{team.team_name}
           </div>
         )
@@ -26,17 +28,16 @@ const hover = (props) => {
   return (
     <Aux>
       <Backdrop menuClose={props.menuClose}/>
-      <div className={styles.Hover} >
-          <div>Trade {props.player.name} to:</div>
-          <hr />
-          {tradeTeams}
-          <hr />
-          <div className={styles.HoverItem}>Release {props.player.name}</div>
+      <div className={styles.DraftPickMenu} >
+        <div>Trade {props.year} {props.round === 1 ? "1st" : "2nd"} pick round pick to:</div>
+        <hr />
+        {tradeTeams}
       </div>
     </Aux>
+
 
   )
 }
 
 
-export default hover
+export default draftPickMenu

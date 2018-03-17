@@ -41,11 +41,24 @@ const teamSelector = (state = initialState, action) => {
     case actionTypes.ADD_PLAYER_TO_TRADE:
     const newState = JSON.parse(JSON.stringify(state))
 
+    const oldTeam = action.player.team_id
+    const tradedPlayer = action.player.id
+
+    // remove traded player from teamlist
+    newState.tradeTeamData.forEach(team=> {
+      if (team.id === oldTeam) {
+        for (let i = 0; i < team.players.length; i++){
+          if (team.players[i].id === tradedPlayer) {
+            team.players.splice(i, 1)
+          }
+        }
+      }
+    })
+
+    // add traded player to newTeam target list
     newState.tradeTeamData.forEach(team => {
       if (team.id === action.team.id) {
-        if (team.targetAssets) {
-          // team.targetAssets = team.targetAssets
-        } else {
+        if (!team.targetAssets) {
           team.targetAssets = []
         }
         team.targetAssets.push(action.player)
@@ -54,6 +67,26 @@ const teamSelector = (state = initialState, action) => {
 
     return {
       ...newState,
+    }
+
+    case actionTypes.ADD_DRAFTPICK_TO_TRADE:
+    console.log(action.team, action.draftpick, action.original_team);
+    const newState2 = JSON.parse(JSON.stringify(state))
+
+    newState2.tradeTeamData.forEach(team => {
+      if (team.id === action.team.id) {
+        console.log(team.id, action.team.id);
+        console.log(action.draftpick);
+        if (!team.targetAssets) {
+          team.targetAssets = []
+        }
+        team.targetAssets.push(action.draftpick)
+      }
+    })
+
+
+    return {
+      ...newState2
     }
 
     default:

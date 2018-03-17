@@ -14,6 +14,10 @@
   cursor: pointer;
 }
 
+.MenuContainer {
+  position: relative;
+}
+
 .Hawks {
   background-color: #E03A3E
 }

@@ -1,0 +1,27 @@
+.DraftPickMenu {
+  position: absolute;
+  display: inline;
+  z-index: 99;
+  left: -100px;
+  width: 200px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: .25rem;
+  font-size: 9pt;
+  font-family: sans-serif;
+  font-weight: bold;
+  box-sizing: border-box;
+  background: #ffffff;
+}
+
+.MenuItem {
+  cursor: pointer;
+}
+
+.MenuItem:last-child {
+  /* padding-bottom: 5px; */
+}
+
+.MenuItem:hover {
+  background-color: #eee;
+}

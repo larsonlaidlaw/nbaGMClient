@@ -1,142 +1,194 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
+import DraftPickMenu from './DraftPickMenu/DraftPickMenu'
+
+
+import * as actions from '../../../../../store/actions/teamSelector'
+
+
 import styles from './DraftPick.css'
 
-const draftPick = (props) => {
 
-  const classes = [styles.DraftPick]
+class DraftPick extends Component {
 
-  if (props.team) {
-    if (props.team.nickname === 'hawks') {
-      classes.push(styles.Hawks)
-    }
-
-    if (props.team.nickname === 'celtics') {
-      classes.push(styles.Celtics)
-    }
-
-    if (props.team.nickname === 'nets') {
-      classes.push(styles.Nets)
-    }
-
-    if (props.team.nickname === 'hornets') {
-      classes.push(styles.Hornets)
-    }
-
-    if (props.team.nickname === 'bulls') {
-      classes.push(styles.Bulls)
-    }
-
-    if (props.team.nickname === 'cavaliers') {
-      classes.push(styles.Cavaliers)
-    }
-
-    if (props.team.nickname === 'mavericks') {
-      classes.push(styles.Mavericks)
-    }
-
-    if (props.team.nickname === 'nuggets') {
-      classes.push(styles.Nuggets)
-    }
-
-    if (props.team.nickname === 'pistons') {
-      classes.push(styles.Pistons)
-    }
-
-    if (props.team.nickname === 'warriors') {
-      classes.push(styles.Warriors)
-    }
-
-    if (props.team.nickname === 'rockets') {
-      classes.push(styles.Rockets)
-    }
-
-    if (props.team.nickname === 'pacers') {
-      classes.push(styles.Pacers)
-    }
-
-    if (props.team.nickname === 'clippers') {
-      classes.push(styles.Clippers)
-    }
-
-    if (props.team.nickname === 'lakers') {
-      classes.push(styles.Lakers)
-    }
-
-    if (props.team.nickname === 'grizzlies') {
-      classes.push(styles.Grizzlies)
-    }
-
-    if (props.team.nickname === 'heat') {
-      classes.push(styles.Heat)
-    }
-
-    if (props.team.nickname === 'bucks') {
-      classes.push(styles.Bucks)
-    }
-
-    if (props.team.nickname === 'timberwolves') {
-      classes.push(styles.Timberwolves)
-    }
-
-    if (props.team.nickname === 'pelicans') {
-      classes.push(styles.Pelicans)
-    }
-
-    if (props.team.nickname === 'knicks') {
-      classes.push(styles.Knicks)
-    }
-
-    if (props.team.nickname === 'thunder') {
-      classes.push(styles.Thunder)
-    }
-
-    if (props.team.nickname === 'magic') {
-      classes.push(styles.Magic)
-    }
-
-    if (props.team.nickname === '76ers') {
-      classes.push(styles.Sixers)
-    }
-
-    if (props.team.nickname === 'suns') {
-      classes.push(styles.Suns)
-    }
-
-    if (props.team.nickname === 'blazers') {
-      classes.push(styles.Blazers)
-    }
-
-    if (props.team.nickname === 'kings') {
-      classes.push(styles.Kings)
-    }
-
-    if (props.team.nickname === 'spurs') {
-      classes.push(styles.Spurs)
-    }
-
-    if (props.team.nickname === 'raptors') {
-      classes.push(styles.Raptors)
-    }
-
-    if (props.team.nickname === 'jazz') {
-      classes.push(styles.Jazz)
-    }
-
-    if (props.team.nickname === 'wizards') {
-      classes.push(styles.Wizards)
-    }
-
-    if (props.ineligible) {
-      classes.push(styles.Ineligible)
-    }
+  state = {
+    showMenu: false
   }
 
-  let year = props.year.toString().substring(2)
-  year = "'" + year
+  menuHandler = () => {
+    this.setState({
+      showMenu: !this.state.showMenu
+    })
+  }
 
-  return (
-    <div className={classes.join(' ')}>{year} {props.round === 1 ? "1st" : "2nd"}</div>
-  )
+  _addDraftPickToTrade = (draftpick, team, original_team) => {
+    this.props.onAddDraftPickToTrade(draftpick, team, original_team)
+  }
+
+  render (){
+
+    const classes = [styles.DraftPick]
+
+    if (this.props.team) {
+      if (this.props.team.nickname === 'hawks') {
+        classes.push(styles.Hawks)
+      }
+
+      if (this.props.team.nickname === 'celtics') {
+        classes.push(styles.Celtics)
+      }
+
+      if (this.props.team.nickname === 'nets') {
+        classes.push(styles.Nets)
+      }
+
+      if (this.props.team.nickname === 'hornets') {
+        classes.push(styles.Hornets)
+      }
+
+      if (this.props.team.nickname === 'bulls') {
+        classes.push(styles.Bulls)
+      }
+
+      if (this.props.team.nickname === 'cavaliers') {
+        classes.push(styles.Cavaliers)
+      }
+
+      if (this.props.team.nickname === 'mavericks') {
+        classes.push(styles.Mavericks)
+      }
+
+      if (this.props.team.nickname === 'nuggets') {
+        classes.push(styles.Nuggets)
+      }
+
+      if (this.props.team.nickname === 'pistons') {
+        classes.push(styles.Pistons)
+      }
+
+      if (this.props.team.nickname === 'warriors') {
+        classes.push(styles.Warriors)
+      }
+
+      if (this.props.team.nickname === 'rockets') {
+        classes.push(styles.Rockets)
+      }
+
+      if (this.props.team.nickname === 'pacers') {
+        classes.push(styles.Pacers)
+      }
+
+      if (this.props.team.nickname === 'clippers') {
+        classes.push(styles.Clippers)
+      }
+
+      if (this.props.team.nickname === 'lakers') {
+        classes.push(styles.Lakers)
+      }
+
+      if (this.props.team.nickname === 'grizzlies') {
+        classes.push(styles.Grizzlies)
+      }
+
+      if (this.props.team.nickname === 'heat') {
+        classes.push(styles.Heat)
+      }
+
+      if (this.props.team.nickname === 'bucks') {
+        classes.push(styles.Bucks)
+      }
+
+      if (this.props.team.nickname === 'timberwolves') {
+        classes.push(styles.Timberwolves)
+      }
+
+      if (this.props.team.nickname === 'pelicans') {
+        classes.push(styles.Pelicans)
+      }
+
+      if (this.props.team.nickname === 'knicks') {
+        classes.push(styles.Knicks)
+      }
+
+      if (this.props.team.nickname === 'thunder') {
+        classes.push(styles.Thunder)
+      }
+
+      if (this.props.team.nickname === 'magic') {
+        classes.push(styles.Magic)
+      }
+
+      if (this.props.team.nickname === '76ers') {
+        classes.push(styles.Sixers)
+      }
+
+      if (this.props.team.nickname === 'suns') {
+        classes.push(styles.Suns)
+      }
+
+      if (this.props.team.nickname === 'blazers') {
+        classes.push(styles.Blazers)
+      }
+
+      if (this.props.team.nickname === 'kings') {
+        classes.push(styles.Kings)
+      }
+
+      if (this.props.team.nickname === 'spurs') {
+        classes.push(styles.Spurs)
+      }
+
+      if (this.props.team.nickname === 'raptors') {
+        classes.push(styles.Raptors)
+      }
+
+      if (this.props.team.nickname === 'jazz') {
+        classes.push(styles.Jazz)
+      }
+
+      if (this.props.team.nickname === 'wizards') {
+        classes.push(styles.Wizards)
+      }
+
+      if (this.props.ineligible) {
+        classes.push(styles.Ineligible)
+      }
+    }
+
+
+    let year = this.props.year.toString().substring(2)
+    year = "'" + year
+
+    return (
+      <div className={styles.MenuContainer} onMouseDown={this.menuHandler}>
+        {this.state.showMenu && <DraftPickMenu
+          team={this.props.team}
+          original_team={this.props.original_team}
+          pick={this.props.pick}
+          round={this.props.round}
+          year={this.props.year}
+          addDraftPickToTrade={this._addDraftPickToTrade}
+          tradeTeams={this.props.tradeTeamData}
+          menuClose={this.menuHandler}
+        />}
+        <div className={classes.join(' ')} onMouseDown={this.menuHandler}>{year} {this.props.round === 1 ? "1st" : "2nd"}</div>
+      </div>
+    )
+  }
 }
 
-export default draftPick
+const mapStateToProps = state => {
+  return {
+    tradeTeamData: state.teamSelector.tradeTeamData
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddDraftPickToTrade: (draftpick, team, original_team)=> dispatch(actions.addDraftPickToTrade(draftpick, team, original_team))
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(DraftPick)

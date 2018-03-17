@@ -6,7 +6,7 @@ const targetAssets = (props) => {
   return (
     <div>
       <TargetPlayers team={props.team}/>
-      <TargetPicks />
+      <TargetPicks team={props.team}/>
     </div>
   )
 }

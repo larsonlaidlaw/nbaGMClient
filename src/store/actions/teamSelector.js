@@ -35,3 +35,13 @@ export const addPlayerToTrade = (player, team) => {
     team: team
   }
 }
+
+export const addDraftPickToTrade = (draftpick, team, original_team) => {
+  console.log(`trading pick to the ${team.team_name}`);
+  return {
+    type: actionTypes.ADD_DRAFTPICK_TO_TRADE,
+    draftpick: draftpick,
+    team: team,
+    original_team: original_team
+  }
+}

@@ -23,7 +23,7 @@ const TeamAssets = (props) => {
       <div className={styles.Heading}>Future Picks</div>
       <DraftPicks
         team={props.team}
-        draftpicks={props.team.draftpicks}/>
+        />
       <div className={styles.Heading}>Trade Exceptions</div>
       <TradeExceptions />
     </Aux>

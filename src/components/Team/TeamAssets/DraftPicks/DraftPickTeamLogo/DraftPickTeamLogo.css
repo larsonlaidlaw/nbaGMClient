@@ -1,8 +1,10 @@
 .DraftPickTeamLogo {
   margin: -3px 0 0 5px;
+  border-top: 3px solid gold;
 
 }
 .DraftPickTeamLogo img {
   width: 25px;
   height: auto;
+
 }

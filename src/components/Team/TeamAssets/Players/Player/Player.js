@@ -13,9 +13,10 @@ class Player extends Component {
     showHover: false
   }
 
-  hoverHandler = () => {
+  menuHandler = () => {
+    'we in here'
     this.setState({
-      showHover: !this.state.showHover
+      showMenu: !this.state.showMenu
     })
   }
 
@@ -25,18 +26,16 @@ class Player extends Component {
 
   render (){
 
-    let hover = false
-    if (this.state.showHover) {
-      hover = true;
-    }
+  
 
     return (
-      <div className = {styles.HoverContainer} onMouseDown={this.hoverHandler} >
-        {hover && this.props.currentPlayer && <Hover
+      <div className = {styles.HoverContainer} onMouseDown={this.menuHandler} >
+        {this.state.showMenu && this.props.currentPlayer && <Hover
           addPlayerToTrade={this._addPlayerToTrade}
           team={this.props.team}
           player={this.props.player}
           tradeTeams={this.props.tradeTeamData}
+          menuClose={this.menuHandler}
         />}
         <div className={styles.Player}>
             <CircleImage fileName={this.props.fileName} />
