@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import CircleImage from './CircleImage/CircleImage'
-import Hover from '../../../../UI/Hover/Hover'
+import Hover from './Hover/Hover'
 import * as actions from '../../../../../store/actions/teamSelector'
 
 
