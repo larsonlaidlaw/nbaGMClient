@@ -7,7 +7,6 @@ import styles from './Team.css'
 
 
 const team = (props) => {
-  // can this be moved to a module?
 
   let classes = [styles.Team]
 
@@ -133,8 +132,11 @@ const team = (props) => {
 
   return (
     <div className={classes.join(' ')}>
-      <TeamHeader team={props.team}/>
-      <TeamAssets team={props.team} addPlayerToTrade={props.addPlayerToTrade}/>
+      <TeamHeader
+        team={props.team}/>
+      <TeamAssets
+        team={props.team}
+      />
     </div>
   )
 }

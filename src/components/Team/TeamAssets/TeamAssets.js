@@ -9,18 +9,26 @@ import TradeExceptions from './TradeExceptions/TradeExceptions'
 
 import styles from './TeamAssets.css'
 
-const TeamAssets = (props) => (
-  <Aux>
-    <div className={styles.Heading}>Targets</div>
-    <TargetAssets />
-    <div className={styles.Heading}>Players</div>
-    <Players players={props.team.players} addPlayerToTrade={props.addPlayerToTrade}/>
-    <div className={styles.Heading}>Future Picks</div>
-    <DraftPicks team={props.team} draftpicks={props.team.draftpicks}/>
-    <div className={styles.Heading}>Trade Exceptions</div>
-    <TradeExceptions />
-  </Aux>
-)
+const TeamAssets = (props) => {
+  return (
+    <Aux>
+      <div className={styles.Heading}>Targets</div>
+      <TargetAssets
+        team={props.team}
+      />
+      <div className={styles.Heading}>Players</div>
+      <Players
+        team={props.team}
+      />
+      <div className={styles.Heading}>Future Picks</div>
+      <DraftPicks
+        team={props.team}
+        draftpicks={props.team.draftpicks}/>
+      <div className={styles.Heading}>Trade Exceptions</div>
+      <TradeExceptions />
+    </Aux>
+  )
+}
 
 
 

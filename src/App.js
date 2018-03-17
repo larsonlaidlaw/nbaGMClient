@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
+// import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
 import Layout from './components/Layout/Layout'
 import AddPlayer from './containers/AddPlayer/AddPlayer'

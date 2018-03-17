@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import axios from 'axios'
+// import axios from 'axios'
 import Team from '../../components/Team/Team'
 import styles from './TradeEnvironment.css'
-import * as actions from '../../store/actions/playerSelector'
 
 
 class TradeEnvironment extends Component {
@@ -14,11 +13,11 @@ class TradeEnvironment extends Component {
 
     return (
       <div className={styles.TradeEnvironment}>
-        {tradeTeams.map((teamData)=> {
+        {tradeTeams.map((team)=> {
           return <Team
-            key={teamData.id}
-            team={teamData}
-            addPlayerToTrade={this.props.onAddPlayerToTrade}
+            key={team.id}
+            team={team}
+            // tradeTeamData={this.props.tradeTeamData}
           />
           })}
       </div>
@@ -26,19 +25,11 @@ class TradeEnvironment extends Component {
   }
 }
 
-
-
 const mapStateToProps = state => {
   return {
-    tradeTeams: state.teamSelector.tradeTeams,
     tradeTeamData: state.teamSelector.tradeTeamData
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onAddPlayerToTrade: (player)=> dispatch(actions.addPlayerToTrade(player))
-  }
-}
 
 export default connect(mapStateToProps)(TradeEnvironment)

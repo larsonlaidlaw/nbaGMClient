@@ -58,11 +58,9 @@ const players = (props) => {
     return optionType
   }
 
+  if (props.team.players){
 
-
-  if (props.players){
-
-    players = props.players.map((player)=>{
+    players = props.team.players.map((player)=>{
       return(
         <Player
           key={player.id}
@@ -72,6 +70,9 @@ const players = (props) => {
           years_left={calcYearsRemaining(player)}
           option={findOption(player)}
           fileName='lebron_james'
+          player={player}
+          team={props.team}
+          currentPlayer={true}
         />
       )
     })

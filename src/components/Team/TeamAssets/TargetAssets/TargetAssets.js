@@ -2,10 +2,10 @@ import React from 'react'
 import TargetPlayers from './TargetPlayers/TargetPlayers'
 import TargetPicks from './TargetPicks/TargetPicks'
 
-const targetAssets = () => {
+const targetAssets = (props) => {
   return (
     <div>
-      <TargetPlayers />
+      <TargetPlayers team={props.team}/>
       <TargetPicks />
     </div>
   )

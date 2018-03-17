@@ -2,7 +2,7 @@ import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
   allTeams: [],
-  tradeTeamData: []
+  tradeTeamData: [],
 }
 
 const teamSelector = (state = initialState, action) => {
@@ -36,6 +36,24 @@ const teamSelector = (state = initialState, action) => {
     return {
       ...state,
       tradeTeamData: toAddOrRemove
+    }
+
+    case actionTypes.ADD_PLAYER_TO_TRADE:
+    const newState = JSON.parse(JSON.stringify(state))
+
+    newState.tradeTeamData.forEach(team => {
+      if (team.id === action.team.id) {
+        if (team.targetAssets) {
+          // team.targetAssets = team.targetAssets
+        } else {
+          team.targetAssets = []
+        }
+        team.targetAssets.push(action.player)
+      }
+    })
+
+    return {
+      ...newState,
     }
 
     default:

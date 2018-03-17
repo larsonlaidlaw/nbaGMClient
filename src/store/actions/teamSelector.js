@@ -26,3 +26,12 @@ export const initTeamTradeData = (team) => {
     })
   }
 }
+
+export const addPlayerToTrade = (player, team) => {
+  console.log(`trading ${player.name} to the ${team.team_name}`);
+  return {
+    type: actionTypes.ADD_PLAYER_TO_TRADE,
+    player: player,
+    team: team
+  }
+}
