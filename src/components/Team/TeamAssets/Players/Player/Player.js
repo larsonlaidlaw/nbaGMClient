@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import CircleImage from './CircleImage/CircleImage'
 import Hover from './Hover/Hover'
-import * as actions from '../../../../../store/actions/teamSelector'
+import * as actions from '../../../../../store/actions/actions'
 
 
 import styles from './Player.css'
@@ -14,7 +14,6 @@ class Player extends Component {
   }
 
   menuHandler = () => {
-    'we in here'
     this.setState({
       showMenu: !this.state.showMenu
     })
@@ -26,11 +25,11 @@ class Player extends Component {
 
   render (){
 
-  
+
 
     return (
       <div className = {styles.HoverContainer} onMouseDown={this.menuHandler} >
-        {this.state.showMenu && this.props.currentPlayer && <Hover
+        {this.state.showMenu && <Hover
           addPlayerToTrade={this._addPlayerToTrade}
           team={this.props.team}
           player={this.props.player}

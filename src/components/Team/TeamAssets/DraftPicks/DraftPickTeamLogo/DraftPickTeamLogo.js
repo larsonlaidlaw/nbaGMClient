@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import DraftPickMenu from '../DraftPick/DraftPickMenu/DraftPickMenu'
 
 
-import * as actions from '../../../../../store/actions/teamSelector'
+import * as actions from '../../../../../store/actions/actions'
 
 class DraftPickTeamLogo extends Component  {
 

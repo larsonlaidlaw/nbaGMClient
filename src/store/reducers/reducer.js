@@ -5,7 +5,7 @@ const initialState = {
   tradeTeamData: [],
 }
 
-const teamSelector = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.LOAD_TEAMS:
     const allTeams = action.teams
@@ -39,11 +39,10 @@ const teamSelector = (state = initialState, action) => {
     }
 
     case actionTypes.ADD_PLAYER_TO_TRADE:
-    const newState = JSON.parse(JSON.stringify(state))
 
+    const newState = JSON.parse(JSON.stringify(state))
     const oldTeam = action.player.team_id
     const tradedPlayer = action.player.id
-
     // remove traded player from teamlist
     newState.tradeTeamData.forEach(team=> {
       if (team.id === oldTeam) {
@@ -54,7 +53,6 @@ const teamSelector = (state = initialState, action) => {
         }
       }
     })
-
     // add traded player to newTeam target list
     newState.tradeTeamData.forEach(team => {
       if (team.id === action.team.id) {
@@ -71,10 +69,9 @@ const teamSelector = (state = initialState, action) => {
 
     case actionTypes.ADD_DRAFTPICK_TO_TRADE:
 
+    const newState2 = JSON.parse(JSON.stringify(state))
     const oldTeam2 = action.draftpick.team_id
     const tradedPick = action.draftpick.id
-
-    const newState2 = JSON.parse(JSON.stringify(state))
 
     newState2.tradeTeamData.forEach( team => {
       if (team.id === oldTeam2) {
@@ -95,7 +92,6 @@ const teamSelector = (state = initialState, action) => {
       }
     })
 
-
     return {
       ...newState2
     }
@@ -105,4 +101,4 @@ const teamSelector = (state = initialState, action) => {
   }
 }
 
-export default teamSelector
+export default reducer

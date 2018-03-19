@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Team from './Team/Team'
 import axios from 'axios'
 import styles from './TeamSelector.css'
-import * as actions from '../../store/actions/teamSelector'
+import * as actions from '../../store/actions/actions'
 
 
 class TeamSelector extends Component {

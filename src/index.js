@@ -9,13 +9,13 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-import teamSelectorReducer from './store/reducers/teamSelector'
+import reducer from './store/reducers/reducer'
 
 
 const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
 const rootReducer = combineReducers({
-  teamSelector: teamSelectorReducer,
+  teamSelector: reducer,
 })
 
 
