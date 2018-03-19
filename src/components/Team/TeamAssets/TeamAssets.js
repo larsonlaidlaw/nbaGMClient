@@ -10,12 +10,24 @@ import TradeExceptions from './TradeExceptions/TradeExceptions'
 import styles from './TeamAssets.css'
 
 const TeamAssets = (props) => {
+
+  console.log(props);
+
+  let renderTargets = null
+
+  if (props.team.targetAssets) {
+    renderTargets = (
+      <Aux>
+        <div className={styles.Heading}>Targets</div>
+        <TargetAssets
+          team={props.team}
+        />
+      </Aux>
+    )
+  }
   return (
     <Aux>
-      <div className={styles.Heading}>Targets</div>
-      <TargetAssets
-        team={props.team}
-      />
+      {renderTargets}
       <div className={styles.Heading}>Players</div>
       <Players
         team={props.team}
