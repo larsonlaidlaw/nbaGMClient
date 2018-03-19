@@ -71,9 +71,23 @@ const teamSelector = (state = initialState, action) => {
 
     case actionTypes.ADD_DRAFTPICK_TO_TRADE:
     console.log(action.team, action.draftpick, action.original_team);
+
+    const oldTeam2 = action.draftpick.team_id
+    const tradedPick = action.draftpick.id
+
     const newState2 = JSON.parse(JSON.stringify(state))
 
-    newState2.tradeTeamData.forEach(team => {
+    newState2.tradeTeamData.forEach( team => {
+      if (team.id === oldTeam2) {
+        for (let i = 0; i < team.draftpicks.length; i++){
+          if (team.draftpicks[i].id === tradedPick) {
+            team.draftpicks.splice(i, 1)
+          }
+        }
+      }
+    })
+
+    newState2.tradeTeamData.forEach( team => {
       if (team.id === action.team.id) {
         console.log(team.id, action.team.id);
         console.log(action.draftpick);

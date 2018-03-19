@@ -24,7 +24,12 @@ const draftPicks = (props) => {
     if (pick.team_id !== pick.original_team) {
       return <DraftPickTeamLogo
         key={pick.id}
-        logo={pick.original_team}/>
+        pick={pick}
+        team={props.team}
+        logo={pick.original_team}
+        round={pick.round}
+        year={pick.year}
+      />
     }
     return null
   })
@@ -32,7 +37,7 @@ const draftPicks = (props) => {
   return (
     <div className={styles.DraftPicks}>
       <div className={styles.TeamPicks}>{picks}</div>
-      <div>{otherTeamspicks}</div>
+      <div className={styles.OtherTeamsPicks}>{otherTeamspicks}</div>
     </div>
   )
 }

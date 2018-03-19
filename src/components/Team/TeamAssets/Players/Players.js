@@ -69,7 +69,7 @@ const players = (props) => {
           salary={formatSalary(player)}
           years_left={calcYearsRemaining(player)}
           option={findOption(player)}
-          fileName='lebron_james'
+          fileName={player.slug}
           player={player}
           team={props.team}
           currentPlayer={true}

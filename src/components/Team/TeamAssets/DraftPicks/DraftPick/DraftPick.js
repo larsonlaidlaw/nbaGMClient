@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 
 import DraftPickMenu from './DraftPickMenu/DraftPickMenu'
 
-
 import * as actions from '../../../../../store/actions/teamSelector'
 
 

@@ -1,8 +1,20 @@
 .DraftPickTeamLogo {
   margin: -3px 0 0 5px;
+}
+
+.MenuContainer {
+  position: relative;
+}
+
+.FirstRoundPick {
   border-top: 3px solid gold;
 
 }
+
+.SecondRoundPick {
+  border-top: 3px solid silver;
+}
+
 .DraftPickTeamLogo img {
   width: 25px;
   height: auto;

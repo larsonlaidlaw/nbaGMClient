@@ -6,7 +6,7 @@ const circleImage = (props) =>  {
 
   return (
     <div className={styles.CircleImage}>
-      <img src={imagePath} alt="player-name" />
+      <img src={imagePath} alt={props.fileName} />
     </div>
   )
 }

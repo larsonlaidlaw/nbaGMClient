@@ -66,7 +66,7 @@ const targetPlayers = (props) => {
           salary={formatSalary(target)}
           years_left={calcYearsRemaining(target)}
           option={findOption(target)}
-          fileName='lebron_james'
+          fileName={target.slug}
           player={target}
           team={props.team}
         />

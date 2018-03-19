@@ -18,10 +18,12 @@
 }
 
 .OtherTeamsPicks {
-
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
-.Nets {
+/* .Nets {
   background-color: black;
 }
 
@@ -31,11 +33,11 @@
 
 .Cavaliers {
   background-color: #6F263D;
-}
+} */
 
 
-.picks table {
+/* .picks table {
   color: #fff;
   font-size: 9pt;
   text-align: center;
-}
+} */
