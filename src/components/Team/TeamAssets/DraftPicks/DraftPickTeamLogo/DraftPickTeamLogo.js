@@ -25,8 +25,6 @@ class DraftPickTeamLogo extends Component  {
 
   render () {
 
-    console.log(this.props.round);
-
     const classes = [styles.DraftPickTeamLogo]
     if (this.props.round === 1) {
       classes.push(styles.FirstRoundPick)

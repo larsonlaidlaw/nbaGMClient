@@ -10,7 +10,6 @@ const draftPickMenu = (props) => {
 
   if (props.tradeTeams.length > 1) {
     tradeTeams = props.tradeTeams.map( team => {
-      console.log(team, props);
       if (team.id !== props.pick.team_id) {
         return (
           <div

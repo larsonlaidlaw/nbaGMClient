@@ -28,7 +28,6 @@ export const initTeamTradeData = (team) => {
 }
 
 export const addPlayerToTrade = (player, team) => {
-  console.log(`trading ${player.name} to the ${team.team_name}`);
   return {
     type: actionTypes.ADD_PLAYER_TO_TRADE,
     player: player,
@@ -37,7 +36,6 @@ export const addPlayerToTrade = (player, team) => {
 }
 
 export const addDraftPickToTrade = (draftpick, team, original_team) => {
-  console.log(`trading pick to the ${team.team_name}`);
   return {
     type: actionTypes.ADD_DRAFTPICK_TO_TRADE,
     draftpick: draftpick,

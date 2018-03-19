@@ -14,7 +14,7 @@ const targetPicks = (props) => {
           round={target.round}
         />
       }
-      return
+      return null
     })
   }
 
@@ -22,9 +22,6 @@ const targetPicks = (props) => {
     <div>
       <div className={styles.TargetPicks}>
         {targets}
-
-        {/* <DraftPickTeamLogo logo="1"/>
-        <DraftPickTeamLogo logo="14" /> */}
       </div>
       <div className={styles.Summary}>
         <div>2 Players | 4 Picks</div>
