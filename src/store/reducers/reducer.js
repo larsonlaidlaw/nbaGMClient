@@ -6,6 +6,11 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
+  console.log('does this hit every time?');
+
+
+  const newState = JSON.parse(JSON.stringify(state))
+
   switch (action.type) {
     case actionTypes.LOAD_TEAMS:
     const allTeams = action.teams
@@ -40,7 +45,6 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.ADD_PLAYER_TO_TRADE:
 
-    const newState = JSON.parse(JSON.stringify(state))
     const oldTeam = action.player.team_id
     const tradedPlayer = action.player.id
     // remove traded player from teamlist
@@ -48,7 +52,7 @@ const reducer = (state = initialState, action) => {
       if (team.id === oldTeam) {
         for (let i = 0; i < team.players.length; i++){
           if (team.players[i].id === tradedPlayer) {
-            team.players.splice(i, 1)
+            team.players[i].currentTarget = action.team.team_name
           }
         }
       }
@@ -73,17 +77,17 @@ const reducer = (state = initialState, action) => {
     const oldTeam2 = action.draftpick.team_id
     const tradedPick = action.draftpick.id
 
-    newState2.tradeTeamData.forEach( team => {
+    newState.tradeTeamData.forEach( team => {
       if (team.id === oldTeam2) {
         for (let i = 0; i < team.draftpicks.length; i++){
           if (team.draftpicks[i].id === tradedPick) {
-            team.draftpicks.splice(i, 1)
+            team.draftpicks[i].currentTarget = true
           }
         }
       }
     })
 
-    newState2.tradeTeamData.forEach( team => {
+    newState.tradeTeamData.forEach( team => {
       if (team.id === action.team.id) {
         if (!team.targetAssets) {
           team.targetAssets = []
@@ -93,7 +97,47 @@ const reducer = (state = initialState, action) => {
     })
 
     return {
-      ...newState2
+      ...newState
+    }
+
+    case actionTypes.REMOVE_TRADE_ASSET:
+
+    // remove player from target assets
+    newState.tradeTeamData.forEach( team => {
+      if (team.targetAssets) {
+        team.targetAssets = team.targetAssets.filter( asset => {
+          if (asset.name) {
+            return asset.name !== action.asset.name
+          }
+          if (asset.round) {
+            return asset.id !== action.asset.id
+          }
+        })
+      }
+    })
+
+    // add player back to players list
+    newState.tradeTeamData.forEach( team => {
+      if (team.id === action.asset.team_id) {
+        if (action.asset.name) {
+          team.players.forEach( player => {
+            if (action.asset.id === player.id){
+              player.currentTarget = false
+            }
+          })
+        }
+        if (action.asset.round) {
+          team.draftpicks.forEach( pick => {
+            if (action.asset.id === pick.id) {
+              pick.currentTarget = false
+            }
+          })
+        }
+      }
+    })
+
+    return {
+      ...newState
     }
 
     default:

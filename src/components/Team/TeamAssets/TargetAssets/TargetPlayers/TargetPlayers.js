@@ -69,6 +69,7 @@ const targetPlayers = (props) => {
           fileName={target.slug}
           player={target}
           team={props.team}
+          whichMenu="target"
         />
       }
       return

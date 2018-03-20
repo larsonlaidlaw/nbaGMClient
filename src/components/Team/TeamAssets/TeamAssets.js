@@ -15,7 +15,7 @@ const TeamAssets = (props) => {
 
   let renderTargets = null
 
-  if (props.team.targetAssets) {
+  if (props.team.targetAssets && props.team.targetAssets.length >= 1) {
     renderTargets = (
       <Aux>
         <div className={styles.Heading}>Targets</div>
@@ -41,7 +41,5 @@ const TeamAssets = (props) => {
     </Aux>
   )
 }
-
-
 
 export default TeamAssets

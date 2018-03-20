@@ -72,7 +72,7 @@ const players = (props) => {
           fileName={player.slug}
           player={player}
           team={props.team}
-          // currentPlayer={true}
+          whichMenu="player"
         />
       )
     })

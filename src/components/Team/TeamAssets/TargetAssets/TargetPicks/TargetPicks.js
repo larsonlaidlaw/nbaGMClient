@@ -17,6 +17,8 @@ const targetPicks = (props) => {
           key={target.id}
           logo={target.original_team}
           round={target.round}
+          pick={target}
+          whichMenu="target"
         />
       }
       return null

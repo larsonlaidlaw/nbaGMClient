@@ -15,6 +15,7 @@ const draftPicks = (props) => {
         original_team={pick.original_team}
         round={pick.round}
         year={pick.year}
+        whichMenu="draftpick"
       />
     }
     return null
@@ -29,6 +30,7 @@ const draftPicks = (props) => {
         logo={pick.original_team}
         round={pick.round}
         year={pick.year}
+        whichMenu="draftpick"
       />
     }
     return null

@@ -1,4 +1,4 @@
-.Hover {
+.TradeMenu {
   position: absolute;
   display: inline;
   z-index: 99;
@@ -14,14 +14,14 @@
   background: #ffffff;
 }
 
-.HoverItem {
+.TradeMenuItem {
   cursor: pointer;
 }
 
-.HoverItem:last-child {
+.TradeMenuItem:last-child {
   /* padding-bottom: 5px; */
 }
 
-.HoverItem:hover {
+.TradeMenuItem:hover {
   background-color: #eee;
 }

@@ -43,3 +43,10 @@ export const addDraftPickToTrade = (draftpick, team, original_team) => {
     original_team: original_team
   }
 }
+
+export const removeTradeAsset = (asset) => {
+  return {
+    type: actionTypes.REMOVE_TRADE_ASSET,
+    asset: asset
+  }
+}

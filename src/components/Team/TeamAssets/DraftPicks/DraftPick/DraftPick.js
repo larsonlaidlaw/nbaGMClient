@@ -150,7 +150,7 @@ class DraftPick extends Component {
         classes.push(styles.Wizards)
       }
 
-      if (this.props.ineligible) {
+      if (this.props.pick.currentTarget) {
         classes.push(styles.Ineligible)
       }
     }
@@ -170,6 +170,7 @@ class DraftPick extends Component {
           addDraftPickToTrade={this._addDraftPickToTrade}
           tradeTeams={this.props.tradeTeamData}
           menuClose={this.menuHandler}
+          whichMenu={this.props.whichMenu}
         />}
         <div className={classes.join(' ')} onMouseDown={this.menuHandler}>{year} {this.props.round === 1 ? "1st" : "2nd"}</div>
       </div>
