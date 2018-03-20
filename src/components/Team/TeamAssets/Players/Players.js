@@ -13,49 +13,61 @@ const players = (props) => {
   }
 
   const formatSalary = (player) => {
-    let salary = "$X,XXX,XXX"
-    const season = player.contracts[0].seasons[0]
-    if (season) {
-        salary = player.contracts[0].seasons[0].salary
-        salary = salary.toFixed().replace(/(\d)(?=(\d{3})+(,|$))/g, '$1,')
-        salary = '$' + salary
+    let salary = "Free Agent"
+    if (player.contracts[0]) {
+      salary = "$X,XXX,XXX"
+      const season = player.contracts[0].seasons[0]
+      if (season) {
+          salary = player.contracts[0].seasons[0].salary
+          salary = salary.toFixed().replace(/(\d)(?=(\d{3})+(,|$))/g, '$1,')
+          salary = '$' + salary
+      }
+      return salary
     }
     return salary
   }
 
   const calcYearsRemaining = (player) => {
-    const contract = player.contracts[0]
-    const remainingYears = contract.seasons.length - 1
 
-    let x
-    if (remainingYears > 1) {
-      x = `${remainingYears} years left`
-    }
+    let x = "Free Agent"
 
-    if (remainingYears === 1) {
-      x = 'Expiring Contract'
-    }
+    if (player.contracts[0]) {
+      const contract = player.contracts[0]
+      const remainingYears = contract.seasons.length - 1
 
-    if (remainingYears < 1) {
-      x = 'Free Agent'
+
+      if (remainingYears > 1) {
+        x = `${remainingYears} years left`
+      }
+
+      if (remainingYears === 1) {
+        x = 'Expiring Contract'
+      }
+
+      if (remainingYears < 1) {
+        x = 'Free Agent'
+      }
     }
     return x
   }
 
   const findOption = (player) => {
-    let optionType = "No Options"
-    const season = player.contracts[0].seasons[0]
+    if (player.contracts[0]) {
+      let optionType = "No Options"
+      const season = player.contracts[0].seasons[0]
 
-    if (season) {
-      if (season.player_option) {
-        optionType = "Player Option"
-      }
+      if (season) {
+        if (season.player_option) {
+          optionType = "Player Option"
+        }
 
-      if (season.team_option) {
-        optionType = "Team Option"
+        if (season.team_option) {
+          optionType = "Team Option"
+        }
       }
+      return optionType
     }
-    return optionType
+
   }
 
   if (props.team.players){

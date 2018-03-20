@@ -130,6 +130,10 @@ const team = (props) => {
     classes.push(styles.Wizards)
   }
 
+  if (props.team.nickname === 'free_agents') {
+    classes.push(styles.FreeAgents)
+  }
+
   return (
     <div className={classes.join(' ')}>
       <TeamHeader

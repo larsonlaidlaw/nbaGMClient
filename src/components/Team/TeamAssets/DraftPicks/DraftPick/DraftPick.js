@@ -25,6 +25,10 @@ class DraftPick extends Component {
     this.props.onAddDraftPickToTrade(draftpick, team, original_team)
   }
 
+  _removeTradeAsset = (asset) => {
+    this.props.onRemoveTradeAsset(asset)
+  }
+
   render (){
 
     const classes = [styles.DraftPick]
@@ -168,6 +172,7 @@ class DraftPick extends Component {
           round={this.props.round}
           year={this.props.year}
           addDraftPickToTrade={this._addDraftPickToTrade}
+          removeTradeAsset={this._removeTradeAsset}
           tradeTeams={this.props.tradeTeamData}
           menuClose={this.menuHandler}
           whichMenu={this.props.whichMenu}
@@ -186,7 +191,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddDraftPickToTrade: (draftpick, team, original_team)=> dispatch(actions.addDraftPickToTrade(draftpick, team, original_team))
+    onAddDraftPickToTrade: (draftpick, team, original_team)=> dispatch(actions.addDraftPickToTrade(draftpick, team, original_team)),
+    onRemoveTradeAsset: (asset)=> dispatch(actions.removeTradeAsset(asset))
   }
 }
 
