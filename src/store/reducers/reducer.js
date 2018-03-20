@@ -6,9 +6,6 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
-  console.log('does this hit every time?');
-
-
   const newState = JSON.parse(JSON.stringify(state))
 
   switch (action.type) {

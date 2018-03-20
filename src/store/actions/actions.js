@@ -8,7 +8,7 @@ export const loadTeams = (teams) => {
   }
 }
 
-export const loadTradeTeamData = (teamData) => {
+const loadTradeTeamData = (teamData) => {
   return {
     type: actionTypes.LOAD_TRADE_TEAM_DATA,
     team: teamData
@@ -40,6 +40,15 @@ export const addDraftPickToTrade = (draftpick, team, original_team) => {
     type: actionTypes.ADD_DRAFTPICK_TO_TRADE,
     draftpick: draftpick,
     team: team,
+    original_team: original_team
+  }
+}
+
+export const addAssetToTrade = (asset, new_team, original_team) => {
+  return {
+    type: actionTypes.ADD_ASSET_TO_TRADE,
+    asset: asset,
+    new_team: new_team,
     original_team: original_team
   }
 }

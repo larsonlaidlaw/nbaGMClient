@@ -1,0 +1,9 @@
+.Summary {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  color: white;
+  font-size: 9pt;
+  font-weight: bold;
+}

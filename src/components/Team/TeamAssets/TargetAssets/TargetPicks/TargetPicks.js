@@ -30,10 +30,6 @@ const targetPicks = (props) => {
       <div className={classes.join(' ')}>
         {targets}
       </div>
-      <div className={styles.Summary}>
-        <div>2 Players | 4 Picks</div>
-        <div>$58,000,000</div>
-      </div>
     </div>
   )
 }
