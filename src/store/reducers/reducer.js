@@ -6,7 +6,7 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
-  const newState = JSON.parse(JSON.stringify(state))
+  const tradeTeams = JSON.parse(JSON.stringify(state.tradeTeams))
 
   switch (action.type) {
     case actionTypes.LOAD_TEAMS:
@@ -17,102 +17,101 @@ const reducer = (state = initialState, action) => {
       }
 
     case actionTypes.LOAD_TRADE_TEAM_DATA:
-    const selectedTeam = action.team
+      const selectedTeam = action.team
 
-    var found = false;
-    for(var i = 0; i < state.tradeTeams.length; i++) {
-      if (state.tradeTeams[i].id === selectedTeam.id) {
-        found = true;
-        break;
+      var found = false;
+      for(var i = 0; i < state.tradeTeams.length; i++) {
+        if (state.tradeTeams[i].id === selectedTeam.id) {
+          found = true;
+          break;
+        }
       }
-    }
 
-    let toAddOrRemove = null
+      let toAddOrRemove = null
 
-    if (found) {
-      toAddOrRemove = state.tradeTeams.filter((team)=> team.id !== selectedTeam.id)
-    } else {
-      toAddOrRemove = state.tradeTeams.concat(selectedTeam)
-    }
+      if (found) {
+        toAddOrRemove = state.tradeTeams.filter((team)=> team.id !== selectedTeam.id)
+      } else {
+        toAddOrRemove = state.tradeTeams.concat(selectedTeam)
+      }
 
-    return {
-      ...state,
-      tradeTeams: toAddOrRemove
-    }
+      return {
+        ...state,
+        tradeTeams: toAddOrRemove
+      }
 
     case actionTypes.ADD_ASSET_TO_TRADE:
-
-    newState.tradeTeams.forEach(team=> {
-      if (team.id === action.current_team_id) {
-        if (action.asset.name) {
-          for (let i = 0; i < team.players.length; i++){
-            if (team.players[i].id === action.asset.id) {
-              team.players[i].currentTarget = action.new_team.team_name
+      tradeTeams.forEach(team=> {
+        if (team.id === action.current_team_id) {
+          if (action.asset.name) {
+            for (let i = 0; i < team.players.length; i++){
+              if (team.players[i].id === action.asset.id) {
+                team.players[i].currentTarget = action.new_team.team_name
+              }
+            }
+          }
+          if (action.asset.round) {
+            for (let i = 0; i < team.draftpicks.length; i++){
+              if (team.draftpicks[i].id === action.asset.id) {
+                team.draftpicks[i].currentTarget = action.new_team.team_name
+              }
             }
           }
         }
-        if (action.asset.round) {
-          for (let i = 0; i < team.draftpicks.length; i++){
-            if (team.draftpicks[i].id === action.asset.id) {
-              team.draftpicks[i].currentTarget = action.new_team.team_name
-            }
+      })
+      // add traded player to newTeam target list
+      tradeTeams.forEach(team => {
+        if (team.id === action.new_team.id) {
+          if (!team.targetAssets) {
+            team.targetAssets =[]
           }
+          team.targetAssets.push(action.asset)
         }
-      }
-    })
-    // add traded player to newTeam target list
-    newState.tradeTeams.forEach(team => {
-      if (team.id === action.new_team.id) {
-        if (!team.targetAssets) {
-          team.targetAssets =[]
-        }
-        team.targetAssets.push(action.asset)
-      }
-    })
+      })
 
-    return {
-      ...newState
-    }
+      return {
+        ...state,
+        tradeTeams: tradeTeams
+      }
 
     case actionTypes.REMOVE_TRADE_ASSET:
-
     // remove player from target assets
-    newState.tradeTeams.forEach( team => {
-      if (team.targetAssets) {
-        team.targetAssets = team.targetAssets.filter( asset => {
-          if (asset.name) {
-            return asset.name !== action.asset.name
-          }
-          if (asset.round) {
-            return asset.id !== action.asset.id
-          }
-        })
-      }
-    })
-
-    // add player back to players list
-    newState.tradeTeams.forEach( team => {
-      if (team.id === action.asset.team_id) {
-        if (action.asset.name) {
-          team.players.forEach( player => {
-            if (action.asset.id === player.id){
-              player.currentTarget = false
+      tradeTeams.forEach( team => {
+        if (team.targetAssets) {
+          team.targetAssets = team.targetAssets.filter( asset => {
+            if (asset.name) {
+              return asset.name !== action.asset.name
+            }
+            if (asset.round) {
+              return asset.id !== action.asset.id
             }
           })
         }
-        if (action.asset.round) {
-          team.draftpicks.forEach( pick => {
-            if (action.asset.id === pick.id) {
-              pick.currentTarget = false
-            }
-          })
+      })
+      // add player back to players list
+     tradeTeams.forEach( team => {
+        if (team.id === action.asset.team_id) {
+          if (action.asset.name) {
+            team.players.forEach( player => {
+              if (action.asset.id === player.id){
+                player.currentTarget = false
+              }
+            })
+          }
+          if (action.asset.round) {
+            team.draftpicks.forEach( pick => {
+              if (action.asset.id === pick.id) {
+                pick.currentTarget = false
+              }
+            })
+          }
         }
-      }
-    })
+      })
 
-    return {
-      ...newState
-    }
+      return {
+        ...state,
+        tradeTeams: tradeTeams
+      }
 
     default:
       return state
