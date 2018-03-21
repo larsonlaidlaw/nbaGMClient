@@ -19,22 +19,14 @@ class DraftPickTeamLogo extends Component  {
     })
   }
 
-  _addDraftPickToTrade = (draftpick, team, original_team) => {
-    this.props.onAddDraftPickToTrade(draftpick, team, original_team)
-  }
-
-  _removeTradeAsset = (asset) => {
-    this.props.onRemoveTradeAsset(asset)
-  }
-
   render () {
 
     const classes = [styles.DraftPickTeamLogo]
-    if (this.props.round === 1) {
+    if (this.props.pick.round === 1) {
       classes.push(styles.FirstRoundPick)
     }
 
-    if (this.props.round === 2) {
+    if (this.props.pick.round === 2) {
       classes.push(styles.SecondRoundPick)
     }
 
@@ -42,43 +34,29 @@ class DraftPickTeamLogo extends Component  {
       classes.push(styles.Ineligible)
     }
 
-    const imagePath = require('../../../../../assets/images/teams/' + this.props.logo.toString() + '.png')
+    const imagePath = require('../../../../../assets/images/teams/' + this.props.pick.original_team.toString() + '.png')
     return (
 
       <div className={styles.MenuContainer} onMouseDown={this.menuHandler}>
         {this.state.showMenu && <DraftPickMenu
-          team={this.props.team}
-          original_team={this.props.original_team}
           pick={this.props.pick}
-          round={this.props.round}
-          year={this.props.year}
-          addDraftPickToTrade={this._addDraftPickToTrade}
-          removeTradeAsset={this._removeTradeAsset}
-          tradeTeams={this.props.tradeTeamData}
           menuClose={this.menuHandler}
           whichMenu={this.props.whichMenu}
+          {...this.props}
         />}
         <div className={classes.join(' ')}>
           <img src={imagePath} alt="player-name" />
         </div>
       </div>
-
     )
   }
 }
 
 const mapStateToProps = state => {
   return {
-    tradeTeamData: state.teamSelector.tradeTeamData
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onAddDraftPickToTrade: (draftpick, team, original_team)=> dispatch(actions.addDraftPickToTrade(draftpick, team, original_team)),
-    onRemoveTradeAsset: (asset)=> dispatch(actions.removeTradeAsset(asset))
+    tradeTeams: state.teamSelector.tradeTeams
   }
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(DraftPickTeamLogo)
+export default connect(mapStateToProps)(DraftPickTeamLogo)

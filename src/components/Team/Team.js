@@ -5,7 +5,6 @@ import TeamAssets from './TeamAssets/TeamAssets'
 
 import styles from './Team.css'
 
-
 const team = (props) => {
 
   let classes = [styles.Team]
@@ -139,7 +138,7 @@ const team = (props) => {
       <TeamHeader
         team={props.team}/>
       <TeamAssets
-        team={props.team}
+        {...props}
       />
     </div>
   )

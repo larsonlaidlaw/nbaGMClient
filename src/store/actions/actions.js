@@ -27,29 +27,12 @@ export const initTeamTradeData = (team) => {
   }
 }
 
-export const addPlayerToTrade = (player, team) => {
-  return {
-    type: actionTypes.ADD_PLAYER_TO_TRADE,
-    player: player,
-    team: team
-  }
-}
-
-export const addDraftPickToTrade = (draftpick, team, original_team) => {
-  return {
-    type: actionTypes.ADD_DRAFTPICK_TO_TRADE,
-    draftpick: draftpick,
-    team: team,
-    original_team: original_team
-  }
-}
-
-export const addAssetToTrade = (asset, new_team, original_team) => {
+export const addAssetToTrade = (asset, current_team_id, new_team) => {
   return {
     type: actionTypes.ADD_ASSET_TO_TRADE,
     asset: asset,
-    new_team: new_team,
-    original_team: original_team
+    current_team_id: current_team_id,
+    new_team: new_team
   }
 }
 

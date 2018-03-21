@@ -5,9 +5,8 @@ import Backdrop from '../../../../../UI/Backdrop/Backdrop'
 
 
 const tradeMenu = (props) => {
-
-  if ( props.player.currentTarget || props.whichMenu === "target") {
-    {console.log(props.player)}
+  console.log(props);
+  if (props.whichMenu === "target") {
     return (
       <Aux>
         <Backdrop menuClose={props.menuClose}/>
@@ -29,12 +28,12 @@ const tradeMenu = (props) => {
             <div
               key={team.id}
               className={styles.TradeMenuItem}
-              onMouseDown={(event)=> props.addPlayerToTrade(props.player, team)}
+              onMouseDown={(event)=> props.addAssetToTrade(props.player, props.player.team_id, team)}
               >{team.team_name}
             </div>
           )
         }
-        return
+        return null
       })
     }
 
@@ -52,6 +51,5 @@ const tradeMenu = (props) => {
     )
   }
 }
-
 
 export default tradeMenu

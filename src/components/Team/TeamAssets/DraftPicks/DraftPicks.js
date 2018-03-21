@@ -11,11 +11,8 @@ const draftPicks = (props) => {
       return <DraftPick
         key={pick.id}
         pick={pick}
-        team={props.team}
-        original_team={pick.original_team}
-        round={pick.round}
-        year={pick.year}
         whichMenu="draftpick"
+        {...props}
       />
     }
     return null
@@ -26,11 +23,8 @@ const draftPicks = (props) => {
       return <DraftPickTeamLogo
         key={pick.id}
         pick={pick}
-        team={props.team}
-        logo={pick.original_team}
-        round={pick.round}
-        year={pick.year}
         whichMenu="draftpick"
+        {...props}
       />
     }
     return null

@@ -15,10 +15,9 @@ const targetPicks = (props) => {
         }
         return <DraftPickTeamLogo
           key={target.id}
-          logo={target.original_team}
-          round={target.round}
           pick={target}
           whichMenu="target"
+          {...props}
         />
       }
       return null

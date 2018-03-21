@@ -3,9 +3,9 @@ import Aux from '../../../../../../hoc/Aux'
 import Backdrop from '../../../../../UI/Backdrop/Backdrop'
 import styles from './DraftPickMenu.css'
 
-
-
 const draftPickMenu = (props) => {
+
+  console.log(props);
 
   if (props.pick.currentTarget || props.whichMenu === "target") {
     return (
@@ -21,8 +21,6 @@ const draftPickMenu = (props) => {
     )
   }
 
-
-
   if (props.whichMenu === "draftpick") {
     let tradeTeams = 'Add another team to trade.'
 
@@ -33,7 +31,7 @@ const draftPickMenu = (props) => {
             <div
               key={team.id}
               className={styles.MenuItem}
-              onMouseDown={(event)=> props.addDraftPickToTrade(props.pick, team, props.pick.original_team)}
+              onMouseDown={(event)=> props.addAssetToTrade(props.pick, props.pick.team_id, team)}
               >{team.team_name}
             </div>
           )
@@ -54,7 +52,5 @@ const draftPickMenu = (props) => {
     )
   }
 }
-
-
 
 export default draftPickMenu

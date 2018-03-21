@@ -11,8 +11,6 @@ import styles from './TeamAssets.css'
 
 const TeamAssets = (props) => {
 
-  console.log(props);
-
   let renderTargets = null
 
   if (props.team.targetAssets && props.team.targetAssets.length >= 1) {
@@ -20,21 +18,22 @@ const TeamAssets = (props) => {
       <Aux>
         <div className={styles.Heading}>Targets</div>
         <TargetAssets
-          team={props.team}
+          {...props}
         />
       </Aux>
     )
   }
+
   return (
     <Aux>
       {renderTargets}
       <div className={styles.Heading}>Players</div>
       <Players
-        team={props.team}
+        {...props}
       />
       <div className={styles.Heading}>Future Picks</div>
       <DraftPicks
-        team={props.team}
+        {...props}
         />
       <div className={styles.Heading}>Trade Exceptions</div>
       <TradeExceptions />

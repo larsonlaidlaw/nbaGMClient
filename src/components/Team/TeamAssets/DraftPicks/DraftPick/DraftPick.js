@@ -1,13 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
 import DraftPickMenu from './DraftPickMenu/DraftPickMenu'
-
 import * as actions from '../../../../../store/actions/actions'
-
-
 import styles from './DraftPick.css'
-
 
 class DraftPick extends Component {
 
@@ -19,14 +14,6 @@ class DraftPick extends Component {
     this.setState({
       showMenu: !this.state.showMenu
     })
-  }
-
-  _addDraftPickToTrade = (draftpick, team, original_team) => {
-    this.props.onAddDraftPickToTrade(draftpick, team, original_team)
-  }
-
-  _removeTradeAsset = (asset) => {
-    this.props.onRemoveTradeAsset(asset)
   }
 
   render (){
@@ -160,24 +147,18 @@ class DraftPick extends Component {
     }
 
 
-    let year = this.props.year.toString().substring(2)
+    let year = this.props.pick.year.toString().substring(2)
     year = "'" + year
 
     return (
       <div className={styles.MenuContainer} onMouseDown={this.menuHandler}>
         {this.state.showMenu && <DraftPickMenu
-          team={this.props.team}
-          original_team={this.props.original_team}
           pick={this.props.pick}
-          round={this.props.round}
-          year={this.props.year}
-          addDraftPickToTrade={this._addDraftPickToTrade}
-          removeTradeAsset={this._removeTradeAsset}
-          tradeTeams={this.props.tradeTeamData}
           menuClose={this.menuHandler}
           whichMenu={this.props.whichMenu}
+          {...this.props}
         />}
-        <div className={classes.join(' ')} onMouseDown={this.menuHandler}>{year} {this.props.round === 1 ? "1st" : "2nd"}</div>
+        <div className={classes.join(' ')} onMouseDown={this.menuHandler}>{year} {this.props.pick.round === 1 ? "1st" : "2nd"}</div>
       </div>
     )
   }
@@ -185,16 +166,8 @@ class DraftPick extends Component {
 
 const mapStateToProps = state => {
   return {
-    tradeTeamData: state.teamSelector.tradeTeamData
+    tradeTeams: state.teamSelector.tradeTeams
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onAddDraftPickToTrade: (draftpick, team, original_team)=> dispatch(actions.addDraftPickToTrade(draftpick, team, original_team)),
-    onRemoveTradeAsset: (asset)=> dispatch(actions.removeTradeAsset(asset))
-  }
-}
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(DraftPick)
+export default connect(mapStateToProps)(DraftPick)

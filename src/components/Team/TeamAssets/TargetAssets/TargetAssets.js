@@ -6,8 +6,8 @@ import TargetSummary from './TargetSummary/TargetSummary'
 const targetAssets = (props) => {
   return (
     <div>
-      <TargetPlayers team={props.team}/>
-      <TargetPicks team={props.team}/>
+      <TargetPlayers {...props}/>
+      <TargetPicks {...props}/>
       <TargetSummary team={props.team}/>
     </div>
   )
