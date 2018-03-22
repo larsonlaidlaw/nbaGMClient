@@ -42,3 +42,10 @@ export const removeTradeAsset = (asset) => {
     asset: asset
   }
 }
+
+export const changeDate = (date) => {
+  return {
+    type: actionTypes.CHANGE_DATE,
+    date: date
+  }
+}

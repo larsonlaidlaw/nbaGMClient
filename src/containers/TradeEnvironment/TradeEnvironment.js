@@ -47,7 +47,7 @@ class TradeEnvironment extends Component {
 
 const mapStateToProps = state => {
   return {
-    tradeTeams: state.teamSelector.tradeTeams
+    tradeTeams: state.teamSelector.tradeTeams,
   }
 }
 

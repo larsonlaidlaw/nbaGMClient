@@ -1,11 +1,11 @@
 import React from 'react'
-
-
 import Aux from '../../../hoc/Aux'
 import TargetAssets from './TargetAssets/TargetAssets'
 import Players from './Players/Players'
 import DraftPicks from './DraftPicks/DraftPicks'
 import TradeExceptions from './TradeExceptions/TradeExceptions'
+import DeadCap from './DeadCap/DeadCap'
+import CapHolds from './CapHolds/CapHolds'
 
 import styles from './TeamAssets.css'
 
@@ -37,6 +37,10 @@ const TeamAssets = (props) => {
         />
       <div className={styles.Heading}>Trade Exceptions</div>
       <TradeExceptions />
+      <div className={styles.Heading}>Cap Holds</div>
+      <CapHolds />
+      <div className={styles.Heading}>Dead Salary Cap</div>
+      <DeadCap />
     </Aux>
   )
 }

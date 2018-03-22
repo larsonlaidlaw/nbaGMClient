@@ -3,6 +3,7 @@ import * as actionTypes from '../actions/actionTypes'
 const initialState = {
   allTeams: [],
   tradeTeams: [],
+  appDate: new Date()
 }
 
 const reducer = (state = initialState, action) => {
@@ -111,6 +112,18 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         tradeTeams: tradeTeams
+      }
+
+      case actionTypes.CHANGE_DATE:
+      const newAppDate = new Date(action.date)
+
+      return {
+        ...state,
+        appDate : newAppDate
+      }
+
+      return {
+        ...state
       }
 
     default:

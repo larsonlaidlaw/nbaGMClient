@@ -1,0 +1,16 @@
+.WaivedPlayer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 30px;
+  font-size: 9pt;
+  font-weight: bold;
+  padding: 0 10px;
+
+  background: #ffffff; /* Old browsers */
+  background: -moz-linear-gradient(top, #ffffff 0%, #c9c9c9 53%, #9ca6a8 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #ffffff 0%,#c9c9c9 53%,#9ca6a8 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #ffffff 0%,#c9c9c9 53%,#9ca6a8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#9ca6a8',GradientType=0 ); /* IE6-9 */
+}

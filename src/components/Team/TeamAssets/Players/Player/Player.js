@@ -46,7 +46,7 @@ class Player extends Component {
     let x = "Free Agent"
     if (player.contracts[0]) {
       const contract = player.contracts[0]
-      const remainingYears = contract.seasons.length - 1
+      const remainingYears = contract.seasons.length
       if (remainingYears > 1) {
         x = `${remainingYears} years left`
       }
@@ -111,14 +111,5 @@ const mapStateToProps = state => {
     tradeTeams: state.teamSelector.tradeTeams
   }
 }
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     onAddPlayerToTrade: (player, team)=> dispatch(actions.addPlayerToTrade(player, team)),
-//     onAddAssetToTrade: (asset, new_team, current_team)=> dispatch(actions.addAssetToTrade(asset, new_team, current_team)),
-//     onRemoveTradeAsset: (asset)=> dispatch(actions.removeTradeAsset(asset))
-//   }
-// }
-
 
 export default connect(mapStateToProps)(Player)
