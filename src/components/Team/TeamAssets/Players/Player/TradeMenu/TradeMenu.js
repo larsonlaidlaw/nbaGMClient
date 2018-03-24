@@ -4,6 +4,7 @@ import Aux from '../../../../../../hoc/Aux'
 import Backdrop from '../../../../../UI/Backdrop/Backdrop'
 
 const tradeMenu = (props) => {
+  console.log(props);
 
   var menuContent = <div>{props.player.name} can't be traded.</div>
   var tradeTarget = false
@@ -20,9 +21,9 @@ const tradeMenu = (props) => {
   const playerUnderContract = (player) => {
     if (player.contracts[0].seasons.length >= 1) {
       const last_season_index = player.contracts[0].seasons.length - 1
-      if (player.contracts[0].seasons[last_season_index].player_option) {
-        return false
-      }
+      // if (player.contracts[0].seasons[last_season_index].player_option) {
+      //   return false
+      // }
       return true
     }
     return false
@@ -47,10 +48,16 @@ const tradeMenu = (props) => {
         return null
       })
 
+      const waivePlayer = <div
+        className={styles.TradeMenuItem}
+        onMouseDown={()=> props.waivePlayer(props.player)}
+        >Waive {props.player.name}</div>
+
     menuContent = (
       <Aux>
         {tradeMessage}
         {tradeTeams}
+        {waivePlayer}
       </Aux>
     )
   }

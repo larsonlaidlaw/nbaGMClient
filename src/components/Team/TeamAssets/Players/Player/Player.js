@@ -92,11 +92,18 @@ class Player extends Component {
                 <div><span>{this.props.player.name}</span></div>
                 <div><span>{`${this.calculateAge(this.props.player.birth_date)} years old`}</span></div>
               </div>
-              <div className={styles.SalaryInfo}>
-                <div><span>{this.formatSalary(this.props.player)}</span></div>
-                <div><span>{this.calcYearsRemaining(this.props.player)}</span></div>
-                <div><span>{this.findOption(this.props.player)}</span></div>
-              </div>
+              {!this.props.player.contracts[0].two_way &&
+                <div className={styles.SalaryInfo}>
+                  <div><span>{this.formatSalary(this.props.player)}</span></div>
+                  <div><span>{this.calcYearsRemaining(this.props.player)}</span></div>
+                  <div><span>{this.findOption(this.props.player)}</span></div>
+                </div>
+              }
+              {this.props.player.contracts[0].two_way &&
+                <div className={styles.SalaryInfo}>
+                  <div><span>Two way player</span></div>    
+                </div>
+              }
           </div>
 
           {this.props.player.currentTarget ? <div className={styles.CurrentTarget}> Being Traded to the {this.props.player.currentTarget}</div> : null}
@@ -108,7 +115,7 @@ class Player extends Component {
 
 const mapStateToProps = state => {
   return {
-    tradeTeams: state.teamSelector.tradeTeams
+    tradeTeams: state.reducer.tradeTeams
   }
 }
 

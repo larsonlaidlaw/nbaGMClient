@@ -72,8 +72,8 @@ class AddContract extends Component {
 
       const teamArray = [ {value: 0, displayValue: 'Select Team'} ]
 
-      res.data.teams.forEach((team)=>{
-        teamArray.push({value: team.id, displayValue: team.nickname})
+      res.data.forEach((team)=>{
+        teamArray.push({value: team.id, displayValue: team.team_name})
       })
 
       this.setState( prevState => ({
@@ -111,10 +111,10 @@ class AddContract extends Component {
       if (id === 'team_id') {
         axios.get(`http://localhost:3000/teams/${updatedFormElement.value}.json`)
         .then( res => {
-          console.log(res.data.team.players)
+          console.log(res.data.players)
           const playerArray = [{value: 0, displayValue: 'Select Player'}]
 
-          res.data.team.players.forEach((player)=>{
+          res.data.players.forEach((player)=>{
             playerArray.push({value: player.id, displayValue: player.name})
           })
 
@@ -136,22 +136,6 @@ class AddContract extends Component {
       }
       console.log(updatedFormElement.value);
     }
-
-    // addContractHandler = (event) => {
-    //   event.preventDefault()
-    //   console.log('add player');
-    //   const player = {}
-    //   for (let formElement in this.state.addContractForm) {
-    //     player[formElement] = this.state.addContractForm[formElement].value
-    //   }
-    //   console.log(player);
-    //
-    //   axios.post('http://localhost:3000/players', player)
-    //   .then((response)=> {
-    //     console.log(response);
-    //   })
-    //   .catch(error => console.log(error))
-    // }
 
   render () {
 

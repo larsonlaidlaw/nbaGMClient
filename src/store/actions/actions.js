@@ -43,9 +43,24 @@ export const removeTradeAsset = (asset) => {
   }
 }
 
-export const changeDate = (date) => {
+export const stretchPlayer = (player) => {
+  return {
+    type: actionTypes.STRETCH_PLAYER,
+    player: player
+  }
+}
+
+export const changeDate = (year, month, day) => {
   return {
     type: actionTypes.CHANGE_DATE,
-    date: date
+    year: year,
+    month: month,
+    day: day
+  }
+}
+
+export const setSeason = () => {
+  return {
+    type: actionTypes.SET_SEASON
   }
 }

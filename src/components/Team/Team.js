@@ -136,7 +136,7 @@ const team = (props) => {
   return (
     <div className={classes.join(' ')}>
       <TeamHeader
-        team={props.team}/>
+        {...props}/>
       <TeamAssets
         {...props}
       />

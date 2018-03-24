@@ -1,12 +1,18 @@
 import React from 'react'
 import CapHold from './CapHold/CapHold'
 
-const capHolds = () => (
-  <div>
-    <CapHold player='Kyrie Irving' amount='$5,811,114'/>
-    <CapHold player='Richard Jefferson' amount='$2,500,000'/>
-    <CapHold player='Dwyane Wade' amount='$1,471,382'/>
-  </div>
-)
+const capHolds = (props) => {
+  const playersWithCapHolds = props.team.players.map(player => {
+    if (player.contracts[0].active === false && player.contracts[0].dead_seasons.length < 1) {
+      return <CapHold key={player.id} player={player} cap_hold={player.contracts[0].cap_hold} />
+    }
+  })
+  return (
+    <div>
+      {playersWithCapHolds}
+    </div>
+
+  )
+}
 
 export default capHolds

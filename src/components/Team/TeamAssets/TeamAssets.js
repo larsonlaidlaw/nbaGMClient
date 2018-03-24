@@ -38,9 +38,9 @@ const TeamAssets = (props) => {
       <div className={styles.Heading}>Trade Exceptions</div>
       <TradeExceptions />
       <div className={styles.Heading}>Cap Holds</div>
-      <CapHolds />
+      <CapHolds {...props} />
       <div className={styles.Heading}>Dead Salary Cap</div>
-      <DeadCap />
+      <DeadCap {...props}/>
     </Aux>
   )
 }

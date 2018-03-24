@@ -27,6 +27,11 @@ class TradeEnvironment extends Component {
     this.props.onRemoveTradeAsset(asset)
   }
 
+  _waivePlayer = (player) => {
+    console.log('hitting _');
+    this.props.onWaivePlayer(player)
+  }
+
   render () {
     const tradeTeams = this.props.tradeTeams
 
@@ -38,6 +43,8 @@ class TradeEnvironment extends Component {
             team={team}
             addAssetToTrade={this._addAssetToTrade}
             removeTradeAsset={this._removeTradeAsset}
+            waivePlayer={this._waivePlayer}
+            seasonInfo={this.props.seasonInfo}
           />
           })}
       </div>
@@ -47,14 +54,16 @@ class TradeEnvironment extends Component {
 
 const mapStateToProps = state => {
   return {
-    tradeTeams: state.teamSelector.tradeTeams,
+    tradeTeams: state.reducer.tradeTeams,
+    seasonInfo: state.reducer.seasonInfo
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     onAddAssetToTrade: (asset, new_team, current_team)=> dispatch(actions.addAssetToTrade(asset, new_team, current_team)),
-    onRemoveTradeAsset: (asset)=> dispatch(actions.removeTradeAsset(asset))
+    onRemoveTradeAsset: (asset)=> dispatch(actions.removeTradeAsset(asset)),
+    onWaivePlayer: (player)=> dispatch(actions.stretchPlayer(player))
   }
 }
 

@@ -8,14 +8,17 @@ const players = (props) => {
   if (props.team.players){
 
     players = props.team.players.map((player)=>{
-      return(
-        <Player
-          key={player.id}
-          player={player}
-          whichMenu="player"
-          {...props}
-        />
-      )
+      if (player.contracts[0].active) {
+        return(
+          <Player
+            key={player.id}
+            player={player}
+            whichMenu="player"
+            {...props}
+          />
+        )
+      }
+      return null
     })
   }
 

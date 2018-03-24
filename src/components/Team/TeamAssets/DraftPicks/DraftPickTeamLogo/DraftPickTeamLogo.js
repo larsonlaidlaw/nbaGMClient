@@ -54,7 +54,7 @@ class DraftPickTeamLogo extends Component  {
 
 const mapStateToProps = state => {
   return {
-    tradeTeams: state.teamSelector.tradeTeams
+    tradeTeams: state.reducer.tradeTeams
   }
 }
 

@@ -52,8 +52,8 @@ class TeamSelector extends Component {
 
 const mapStateToProps = state => {
   return {
-    allTeams: state.teamSelector.allTeams,
-    tradeTeamData: state.teamSelector.tradeTeamData
+    allTeams: state.reducer.allTeams,
+    tradeTeamData: state.reducer.tradeTeamData
   }
 }
 
