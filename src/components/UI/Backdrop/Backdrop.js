@@ -4,9 +4,9 @@ import classes from './Backdrop.css'
 const backdrop = (props) => (
   <div
     className={classes.Backdrop}
-    onClick={props.menuClose}
+    onClick={props.close}
     >
-    </div> : null
+    </div>
 )
 
 export default backdrop

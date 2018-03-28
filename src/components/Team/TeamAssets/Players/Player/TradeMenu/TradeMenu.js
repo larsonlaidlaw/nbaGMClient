@@ -1,127 +1,90 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import styles from './TradeMenu.css'
-import Aux from '../../../../../../hoc/Aux'
+// import Aux from '../../../../../../hoc/Aux'
 import Backdrop from '../../../../../UI/Backdrop/Backdrop'
+// import Modal from '../../../../../UI/Modal/Modal'
+import TradeMenuItem from './TradeMenuItem/TradeMenuItem'
+import * as menuHelpers from '../../../../../../helpers/menuHelpers'
 
 const tradeMenu = (props) => {
-  console.log(props);
 
-  var menuContent = <div>{props.player.name} can't be traded.</div>
-  var tradeTarget = false
+  console.log(props)
 
-  if (props.whichMenu === "target" || props.player.currentTarget) {
-    tradeTarget = true
-    menuContent = (
-      <div
-        className={styles.TradeMenuItem}
-        onMouseDown={()=> props.removeTradeAsset(props.player)}>Remove {props.player.name} From Trade</div>
-    )
-  }
+  let menuContent
 
-  const playerUnderContract = (player) => {
-    if (player.contracts[0].seasons.length >= 1) {
-      const last_season_index = player.contracts[0].seasons.length - 1
-      // if (player.contracts[0].seasons[last_season_index].player_option) {
-      //   return false
-      // }
-      return true
-    }
-    return false
-  }
+  if (props.menuType === "playerMenu") {
+    let tradeMessage = props.tradeTeams.length > 1 ? <span>Trade {props.player.name} to: </span> : <span>Add another team to trade.</span>
 
-  if (!tradeTarget && props.whichMenu === "player" && playerUnderContract(props.player)) {
-    let tradeMessage = "Add another team to trade"
-      if (props.tradeTeams.length > 1) {
-        tradeMessage = `Trade ${props.player.name} to:`
-      }
-      const tradeTeams = props.tradeTeams.map( team => {
-        if (team.id !== props.player.team_id) {
-          return (
-            <div
-              key={team.id}
-              className={styles.TradeMenuItem}
-              onMouseDown={(event)=> props.addAssetToTrade(props.player, props.player.team_id, team)}
-              >{team.team_name}
-            </div>
-          )
-        }
-        return null
-      })
+    const tradeTeams = props.tradeTeams.map(team => {
+      return team.id !== props.player.team_id ? <TradeMenuItem
+        key={team.id}
+        click={props.addAssetToTrade}
+        arg1={props.player}
+        arg2={props.player.team_id}
+        arg3={team}
+        >{team.team_name}</TradeMenuItem> : null
+    })
 
-      const waivePlayer = <div
-        className={styles.TradeMenuItem}
-        onMouseDown={()=> props.waivePlayer(props.player)}
-        >Waive {props.player.name}</div>
+    const waivePlayerMenu = <Fragment>
+      <hr />
+      <TradeMenuItem click={props.waivePlayer} arg1={props.player}>Waive {props.player.name}</TradeMenuItem>
+      <TradeMenuItem click={props.waivePlayer} arg1={props.player} arg2={true}>Waive and stretch {props.player.name}</TradeMenuItem>
+   </Fragment>
 
-    menuContent = (
-      <Aux>
-        {tradeMessage}
-        {tradeTeams}
-        {waivePlayer}
-      </Aux>
-    )
-  }
+   const playerOptionMenu = <Fragment>
+     <hr />
+     <TradeMenuItem>Opt in to last year of contract.</TradeMenuItem>
+     <TradeMenuItem>Opt out of last year of contract.</TradeMenuItem>
+   </Fragment>
 
-  return (
-    <Aux>
-      <Backdrop menuClose={props.menuClose}/>
-        <div className={styles.TradeMenu} >
+   const teamOptionMenu = <Fragment>
+     <hr />
+     <TradeMenuItem>Pick up team option.</TradeMenuItem>
+     <TradeMenuItem>Decline team option.</TradeMenuItem>
+   </Fragment>
+
+   const extensionMessage = <Fragment>
+     <hr />
+     <TradeMenuItem click={props.modalToggler}>Sign {props.player.name} to contract extension.</TradeMenuItem>
+   </Fragment>
+
+   menuContent = <Fragment>
+     {menuHelpers.playerUnderContract(props.player) && menuHelpers.tradeEligible(props.player) && tradeMessage }
+     {tradeTeams}
+     {menuHelpers.eligibleForExtension(props.player) && extensionMessage}
+     {!menuHelpers.hasTeamOption(props.player) && waivePlayerMenu}
+     {menuHelpers.hasPlayerOption(props.player) && playerOptionMenu}
+     {menuHelpers.hasTeamOption(props.player) && teamOptionMenu}
+   </Fragment>
+ }
+
+ if (props.menuType === "targetPlayer" || props.player.currentTarget) {
+   menuContent = (
+     <TradeMenuItem
+       className={styles.TradeMenuItem}
+       click={props.removeTradeAsset} arg1={props.player}>Remove {props.player.name} From Trade</TradeMenuItem>
+   )
+ }
+
+ if (props.menuType === "capHoldMenu") {
+   console.log(props);
+   menuContent = (
+     <Fragment>
+       <TradeMenuItem>Resign {props.player.name}</TradeMenuItem>
+       <hr />
+       <TradeMenuItem click={props.renounceCapHold} arg1={props.player}>Renounce {props.player.name}</TradeMenuItem>
+     </Fragment>
+   )
+ }
+
+    return (
+      <Fragment>
+        <Backdrop close={props.menuHandler}/>
+        <div className={styles.TradeMenu}>
           {menuContent}
         </div>
-    </Aux>
-  )
+      </Fragment>
+    )
 }
 
 export default tradeMenu
-
-
-//
-//
-//   const teamOptions = () => {
-//     return (
-//       <Aux>
-//         <hr />
-//         <div className={styles.TradeMenuItem}>Sign {props.player.name} to contract extension</div>
-//         <hr />
-//         <div className={styles.TradeMenuItem}>Release {props.player.name}</div>
-//       </Aux>
-//     )
-//   }
-//
-//   return (
-//     <Aux>
-//       <div>{tradeMessage}</div>
-//       {tradeTeams.length > 1 ? <hr /> : null}
-//       {tradeTeams}
-//       {teamOptions()}
-//     </Aux>
-//   )
-// }
-//
-//
-// // const playerUnderContractWithOption
-// // const freeAgent
-//
-// return (
-//   <Aux>
-//     <Backdrop menuClose={props.menuClose}/>
-//     <div className={styles.TradeMenu}>
-//       {playerUnderContract()}
-//     </div>
-//   </Aux>
-// )
-// }
-//
-//
-// {/* <hr />
-// <div className={styles.TradeMenuItem}>Sign {props.player.name}</div>
-// <hr />
-//
-// <hr />
-// <div className={styles.TradeMenuItem}>Pick up team option for {props.player.contracts[0].seasons[0].salary}</div>
-// <hr />
-// <div className={styles.TradeMenuItem}>Decline Team Option</div>
-// <hr />
-// <div className={styles.TradeMenuItem}>Opt into final year of contract</div>
-// <hr />
-// <div className={styles.TradeMenuItem}>Opt out of final year of contract</div> */}

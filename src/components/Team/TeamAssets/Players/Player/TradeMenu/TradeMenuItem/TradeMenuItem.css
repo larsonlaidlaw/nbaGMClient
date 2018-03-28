@@ -1,0 +1,17 @@
+.TradeMenuItem {
+  /* font-size: 9pt;
+  font-family: sans-serif;
+  font-weight: bold;
+  box-sizing: border-box;
+  background: #ffffff; */
+  z-index: 5;
+  cursor: pointer;
+}
+
+.TradeMenuItem:last-child {
+  /* padding-bottom: 5px; */
+}
+
+.TradeMenuItem:hover {
+  background-color: #eee;
+}

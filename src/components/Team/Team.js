@@ -2,6 +2,7 @@ import React from 'react'
 
 import TeamHeader from './TeamHeader/TeamHeader'
 import TeamAssets from './TeamAssets/TeamAssets'
+import Modal from '../UI/Modal/Modal'
 
 import styles from './Team.css'
 
@@ -140,6 +141,7 @@ const team = (props) => {
       <TeamAssets
         {...props}
       />
+      {props.showModal && <Modal {...props}>Modal Stuff</Modal>}
     </div>
   )
 }

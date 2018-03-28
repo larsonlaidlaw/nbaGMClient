@@ -36,7 +36,7 @@ const draftPickMenu = (props) => {
             </div>
           )
         }
-        return
+        return null
       })
     }
 

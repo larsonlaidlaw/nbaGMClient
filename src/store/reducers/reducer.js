@@ -13,6 +13,11 @@ const initialState = {
   }
 }
 
+const SEASON_STRING = ['2017-2018','2018-2019', '2019-2020', '2020-2021', '2021-2022', '2022-2023']
+const SALARY_CAP_FIGURES = [99093000, 101000000, 108000000]
+const LUXURY_TAX_FIGURES = [119266000, 123000000, 131000000]
+const APRON_FIGURES = [125266000, 129000000, 137000000]
+
 const reducer = (state = initialState, action) => {
   const tradeTeams = JSON.parse(JSON.stringify(state.tradeTeams))
 
@@ -56,6 +61,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         tradeTeams: toAddOrRemove
+      }
+
+      case actionTypes.REMOVE_ALL_TRADE_TEAMS:
+
+      return {
+        ...state,
+        tradeTeams: []
       }
 
     case actionTypes.ADD_ASSET_TO_TRADE:
@@ -104,8 +116,11 @@ const reducer = (state = initialState, action) => {
             if (asset.round) {
               return asset.id !== action.asset.id
             }
+            return null
           })
+          return null
         }
+        return null
       })
       // add player back to players list
      tradeTeams.forEach( team => {
@@ -132,37 +147,61 @@ const reducer = (state = initialState, action) => {
         tradeTeams: tradeTeams
       }
 
-      case actionTypes.STRETCH_PLAYER:
+      case actionTypes.WAIVE_PLAYER:
 
-      const stretchTeam = tradeTeams.filter(team => team.id === action.player.team_id)[0]
-      let playerToStretch = stretchTeam.players.filter(player => player.id === action.player.id)[0]
-      let contract_id = playerToStretch.contracts[0].id
-      let salaryToStretch = playerToStretch.contracts[0].seasons.slice(1).reduce((prev, season)=>{
+      const julyOrAugust = () => {
+        return state.appDate.getMonth() === 6 || state.appDate.getMonth() === 7 ? true : false
+      }
+
+      const waiveTeam = tradeTeams.filter(team => team.id === action.player.team_id)[0]
+      let playerToWaive = waiveTeam.players.filter(player => player.id === action.player.id)[0]
+
+      let guaranteedSalaryRemaining = playerToWaive.contracts[0].seasons.slice(0).reduce((prev, season)=>{
         return prev + season.guaranteed_salary
       }, 0)
-      let seasonsLeft = playerToStretch.contracts[0].seasons.length - 1
-      let stretchSeasons = seasonsLeft * 2 + 1
-      let perSeasonAmount = salaryToStretch / stretchSeasons
 
-      playerToStretch.contracts[0].active = false
-      let stretchSeasonString = ['2017-2018','2018-2019', '2019-2020', '2020-2021', '2021-2022', '2022-2023']
+      let waiveSeasons = playerToWaive.contracts[0].seasons.length
 
-      for (let i = 0; i < stretchSeasons + 1; i++){
-        let obj = {}
-        obj.season = stretchSeasonString[i]
-        obj.player_id = playerToStretch.id
-        obj.team_id = stretchTeam.id
-        obj.cap_hit = perSeasonAmount
-        playerToStretch.contracts[0].dead_seasons.push(obj)
+      if (!action.stretch) {
+        for (let i = 0; i < waiveSeasons; i++) {
+          let obj = {}
+          obj.season = SEASON_STRING[i]
+          obj.player_id = playerToWaive.id
+          obj.team_id = waiveTeam.id
+          obj.cap_hit = playerToWaive.contracts[0].seasons[i].guaranteed_salary
+          playerToWaive.contracts[0].dead_seasons.push(obj)
+        }
       }
 
-      playerToStretch.contracts[0].dead_seasons[0].cap_hit = playerToStretch.contracts[0].seasons[0].salary
-      playerToStretch.contracts[0].seasons = []
-
-      if (state.appDate.getMonth() === 6 || state.appDate.getMonth() === 7) {
-        playerToStretch.contracts[0].dead_seasons.shift()
+      if (action.stretch) {
+        let stretchSeasons = waiveSeasons * 2 + 1
+        if (julyOrAugust()) {
+          for (let i = 0; i < stretchSeasons; i++) {
+            console.log(i);
+            let obj = {}
+            obj.season = SEASON_STRING[i]
+            obj.player_id = playerToWaive.id
+            obj.team_id = waiveTeam.id
+            obj.cap_hit = guaranteedSalaryRemaining / stretchSeasons
+            playerToWaive.contracts[0].dead_seasons.push(obj)
+          }
+        } else {
+          let currentSeasonSalary = playerToWaive.contracts[0].seasons[0].guaranteed_salary
+          guaranteedSalaryRemaining = guaranteedSalaryRemaining - currentSeasonSalary
+          for (let i = 0; i < stretchSeasons; i++) {
+            let obj = {}
+            obj.season = SEASON_STRING[i]
+            obj.player_id = playerToWaive.id
+            obj.team_id = waiveTeam.id
+            obj.cap_hit = guaranteedSalaryRemaining / stretchSeasons
+            playerToWaive.contracts[0].dead_seasons.push(obj)
+          }
+          playerToWaive.contracts[0].dead_seasons[0].cap_hit = currentSeasonSalary
+        }
       }
 
+      playerToWaive.contracts[0].active = false
+      playerToWaive.contracts[0].seasons = []
 
       return {
         ...state,
@@ -187,19 +226,28 @@ const reducer = (state = initialState, action) => {
       }
 
       case actionTypes.SET_SEASON:
-      const SEASON = ['2017-2018', '2018-2019', '2019-2020']
-      const SALARY_CAP_FIGURES = [99093000, 101000000, 108000000]
-      const LUXURY_TAX_FIGURES = [119266000, 123000000, 131000000]
-      const APRON_FIGURES = [125266000, 129000000, 137000000]
 
       return {
         ...state,
         seasonInfo: {
-          season: SEASON[state.seasonIndex],
+          season: SEASON_STRING[state.seasonIndex],
           salaryCap: SALARY_CAP_FIGURES[state.seasonIndex],
           luxuryTax: LUXURY_TAX_FIGURES[state.seasonIndex],
           apron: APRON_FIGURES[state.seasonIndex]
         }
+      }
+
+      case actionTypes.RENOUNCE_CAP_HOLD:
+      console.log('renounce cap hold');
+      const renounceTeam = tradeTeams.filter(team => team.id === action.player.team_id)[0]
+      let playerToRenounce = renounceTeam.players.filter(player => player.id === action.player.id)[0]
+      playerToRenounce.contracts[0].cap_hold = 0
+      playerToRenounce.team_id = null
+
+
+      return {
+        ...state,
+        tradeTeams: tradeTeams
       }
 
     default:

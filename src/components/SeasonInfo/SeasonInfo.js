@@ -8,17 +8,30 @@ import styles from './SeasonInfo.css'
 class SeasonInfo extends Component {
 
 
+
+  formatDate = (date) => {
+    return <div>{date.getMonth() + 1}/{date.getDate()}/{date.getFullYear()}</div>
+  }
+
   _changeDate = (event, year, months, day) => {
     event.preventDefault()
     this.props.onChangeDate(year, months, day)
     this.props.onSetSeason()
+    this.props.onRemoveAllTradeTeams()
+    this.props.tradeTeams.forEach(team => {
+      this.props.onInitTradeTeamData(team)
+    })
   }
 
 
   render (){
+
+    const React = require('react')
+    // console.log(React.version);
     return (
       <div className={styles.SeasonInfo}>
-        <DateSelect />
+        <div>{this.formatDate(this.props.appDate)}</div>
+        <DateSelect changeDate={this._changeDate}/>
         <div>Season: {this.props.seasonInfo.season}</div>
         <div>Salary Cap: {helpers.formatMoney(this.props.seasonInfo.salaryCap)}</div>
         <div>Luxury Tax: {helpers.formatMoney(this.props.seasonInfo.luxuryTax)}</div>
@@ -32,14 +45,17 @@ class SeasonInfo extends Component {
 const mapStateToProps = state => {
   return {
     appDate: state.reducer.appDate,
-    seasonInfo: state.reducer.seasonInfo
+    seasonInfo: state.reducer.seasonInfo,
+    tradeTeams: state.reducer.tradeTeams
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     onChangeDate: (year, month, day)=> dispatch(actions.changeDate(year, month, day)),
-    onSetSeason: ()=> dispatch(actions.setSeason())
+    onSetSeason: ()=> dispatch(actions.setSeason()),
+    onRemoveAllTradeTeams: ()=> dispatch(actions.removeAllTradeTeams()),
+    onInitTradeTeamData: (team)=> dispatch(actions.initTeamTradeData(team))
   }
 }
 

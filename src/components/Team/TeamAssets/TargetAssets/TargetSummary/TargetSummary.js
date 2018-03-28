@@ -3,7 +3,7 @@ import styles from './TargetSummary.css'
 
 const targetSummary = (props) => {
 
-  const classes = [styles.TargetSummary]
+  // const classes = [styles.TargetSummary]
 
   let numOfPlayers = 0
   let numOfPicks = 0

@@ -13,7 +13,7 @@ const players = (props) => {
           <Player
             key={player.id}
             player={player}
-            whichMenu="player"
+            menuType="playerMenu"
             {...props}
           />
         )

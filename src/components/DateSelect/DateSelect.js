@@ -1,11 +1,6 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import styles from './DateSelect.css'
 import Input from '../UI/Input/Input'
-import Button from '../UI/Button/Button'
-import { connect } from 'react-redux'
-import * as actions from '../../store/actions/actions'
-
 
 class DateSelect extends Component {
 
@@ -56,15 +51,7 @@ class DateSelect extends Component {
     }
   }
 
-  formatDate = (date) => {
-    return <div>{date.getMonth() + 1}/{date.getDate()}/{date.getFullYear()}</div>
-  }
 
-  _changeDate = (event, year, months, day) => {
-    event.preventDefault()
-    this.props.onChangeDate(year, months, day)
-    this.props.onSetSeason()
-  }
 
   componentDidMount () {
     const dateArray = []
@@ -128,31 +115,17 @@ class DateSelect extends Component {
             changed={(event)=> this.inputChangedHandler(event, formElement.id)}
           />
         ))}
-        <button onClick={(event)=>this._changeDate(event, this.state.changeTheDateForm.year_id.value, this.state.changeTheDateForm.month_id.value, this.state.changeTheDateForm.date_id.value)}>Change the Date</button>
+        <button onClick={(event)=>this.props.changeDate(event, this.state.changeTheDateForm.year_id.value, this.state.changeTheDateForm.month_id.value, this.state.changeTheDateForm.date_id.value)}>Change the Date</button>
 
       </form>
     )
 
     return (
       <div className={styles.AddContract}>
-        <div>{this.formatDate(this.props.appDate)}</div>
         {form}
       </div>
     )
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    appDate: state.reducer.appDate
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onChangeDate: (year, month, day)=> dispatch(actions.changeDate(year, month, day)),
-    onSetSeason: ()=> dispatch(actions.setSeason())
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(DateSelect)
+export default DateSelect

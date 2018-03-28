@@ -27,6 +27,12 @@ export const initTeamTradeData = (team) => {
   }
 }
 
+export const removeAllTradeTeams = () => {
+  return {
+    type: actionTypes.REMOVE_ALL_TRADE_TEAMS
+  }
+}
+
 export const addAssetToTrade = (asset, current_team_id, new_team) => {
   return {
     type: actionTypes.ADD_ASSET_TO_TRADE,
@@ -43,10 +49,11 @@ export const removeTradeAsset = (asset) => {
   }
 }
 
-export const stretchPlayer = (player) => {
+export const waivePlayer = (player, stretch) => {
   return {
-    type: actionTypes.STRETCH_PLAYER,
-    player: player
+    type: actionTypes.WAIVE_PLAYER,
+    player: player,
+    stretch: stretch
   }
 }
 
@@ -62,5 +69,12 @@ export const changeDate = (year, month, day) => {
 export const setSeason = () => {
   return {
     type: actionTypes.SET_SEASON
+  }
+}
+
+export const renounceCapHold = (player) => {
+  return {
+    type: actionTypes.RENOUNCE_CAP_HOLD,
+    player: player
   }
 }

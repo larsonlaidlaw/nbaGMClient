@@ -10,11 +10,11 @@ const targetPlayers = (props) => {
         return <Player
           key={target.id}
           player={target}
-          whichMenu="target"
+          menuType="targetPlayer"
           {...props}
         />
       }
-      return
+      return null
     })
   }
 

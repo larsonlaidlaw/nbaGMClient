@@ -5,7 +5,7 @@
   align-items: space-evenly;
   flex-wrap: wrap;
   padding: 5px;
-  z-index: 101;
+  z-index: 2;
 }
 
 .TeamSelectorContainer {

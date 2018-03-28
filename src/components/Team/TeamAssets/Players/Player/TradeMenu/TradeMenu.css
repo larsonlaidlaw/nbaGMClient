@@ -1,7 +1,7 @@
 .TradeMenu {
   position: absolute;
   display: inline;
-  z-index: 99;
+  z-index: 4;
   left: 65px;
   top: 10px;
   width: 275px;

@@ -4,7 +4,6 @@ import TeamLogo from './TeamLogo/TeamLogo'
 import * as helpers from '../../../helpers/helpers'
 
 const teamHeader = (props) => {
-  console.log(props);
 
    const calculateTeamSalary = (team) => {
      let activePlayersSalary = 0
@@ -26,12 +25,14 @@ const teamHeader = (props) => {
 
       if (team.targetAssets) {
         team.targetAssets.forEach(target => {
-          targetSalary += target.contracts[0].seasons[0].salary
+          if (target.name) {
+            targetSalary += target.contracts[0].seasons[0].salary
+          }
         })
+
       }
 
      let totalTeamSalary = [activePlayersSalary, deadSalary, capHolds, targetSalary]
-     console.log(totalTeamSalary);
      return totalTeamSalary
    }
 

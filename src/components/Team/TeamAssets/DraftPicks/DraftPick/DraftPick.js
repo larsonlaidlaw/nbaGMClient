@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import DraftPickMenu from './DraftPickMenu/DraftPickMenu'
-import * as actions from '../../../../../store/actions/actions'
+// import * as actions from '../../../../../store/actions/actions'
 import styles from './DraftPick.css'
 
 class DraftPick extends Component {

@@ -1,19 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
 import CircleImage from './CircleImage/CircleImage'
 import TradeMenu from './TradeMenu/TradeMenu'
-import * as actions from '../../../../../store/actions/actions'
 
 
 import styles from './Player.css'
 
 class Player extends Component {
   state = {
-    showHover: false
+    showMenu: false,
   }
 
   menuHandler = (event) => {
+    // console.log('hit the menuHandler');
     event.stopPropagation()
     this.setState({
       showMenu: !this.state.showMenu
@@ -58,35 +57,39 @@ class Player extends Component {
   }
 
   findOption = (player) => {
-    if (player.contracts[0]) {
-      let optionType = "No Options"
-      const season = player.contracts[0].seasons[0]
-
-      if (season) {
+    let optionType = "No Options"
+    const seasons = player.contracts[0].seasons
+    if (seasons.length > 0) {
+      seasons.forEach(season => {
         if (season.player_option) {
           optionType = "Player Option"
         }
-
+      })
+      seasons.forEach(season => {
         if (season.team_option) {
           optionType = "Team Option"
         }
-      }
-      return optionType
+      })
     }
+    return optionType
   }
 
   render (){
 
     return (
       <div>
-        <div className = {styles.HoverContainer} onMouseDown={(event)=> this.menuHandler(event)} >
-          {this.state.showMenu && <TradeMenu
-            player={this.props.player}
-            menuClose={this.menuHandler}
-            whichMenu={this.props.whichMenu}
-            {...this.props}
-          />}
-          <div className={styles.Player}>
+        <div
+          className={styles.MenuContainer}
+          onClick={this.menuHandler}>
+          {this.state.showMenu &&
+            <TradeMenu
+              onMouseDown={(event)=> this.menuHandler(event)}
+              player={this.props.player}
+              menuHandler={this.menuHandler}
+              menuType={this.props.menuType}
+              {...this.props}
+            />}
+          <div className={styles.Player} >
               <CircleImage fileName={this.props.player.slug} />
               <div className={styles.PlayerInfo}>
                 <div><span>{this.props.player.name}</span></div>
@@ -101,12 +104,11 @@ class Player extends Component {
               }
               {this.props.player.contracts[0].two_way &&
                 <div className={styles.SalaryInfo}>
-                  <div><span>Two way player</span></div>    
+                  <div><span>Two way player</span></div>
                 </div>
               }
+              {this.props.player.currentTarget ? <div className={styles.CurrentTarget}> Being Traded to the {this.props.player.currentTarget}</div> : null}
           </div>
-
-          {this.props.player.currentTarget ? <div className={styles.CurrentTarget}> Being Traded to the {this.props.player.currentTarget}</div> : null}
         </div>
       </div>
     )
