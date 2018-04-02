@@ -7,8 +7,6 @@ import styles from './SeasonInfo.css'
 
 class SeasonInfo extends Component {
 
-
-
   formatDate = (date) => {
     return <div>{date.getMonth() + 1}/{date.getDate()}/{date.getFullYear()}</div>
   }
@@ -21,6 +19,7 @@ class SeasonInfo extends Component {
     this.props.tradeTeams.forEach(team => {
       this.props.onInitTradeTeamData(team)
     })
+    this.props.onInitFreeAgents()
   }
 
 
@@ -30,7 +29,7 @@ class SeasonInfo extends Component {
     // console.log(React.version);
     return (
       <div className={styles.SeasonInfo}>
-        <div>{this.formatDate(this.props.appDate)}</div>
+        {/* <div>{this.formatDate(this.props.appDate)}</div> */}
         <DateSelect changeDate={this._changeDate}/>
         <div>Season: {this.props.seasonInfo.season}</div>
         <div>Salary Cap: {helpers.formatMoney(this.props.seasonInfo.salaryCap)}</div>
@@ -55,7 +54,8 @@ const mapDispatchToProps = dispatch => {
     onChangeDate: (year, month, day)=> dispatch(actions.changeDate(year, month, day)),
     onSetSeason: ()=> dispatch(actions.setSeason()),
     onRemoveAllTradeTeams: ()=> dispatch(actions.removeAllTradeTeams()),
-    onInitTradeTeamData: (team)=> dispatch(actions.initTeamTradeData(team))
+    onInitTradeTeamData: (team)=> dispatch(actions.initTeamTradeData(team)),
+    onInitFreeAgents: ()=> dispatch(actions.initFreeAgents())
   }
 }
 

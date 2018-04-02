@@ -8,8 +8,6 @@ import * as menuHelpers from '../../../../../../helpers/menuHelpers'
 
 const tradeMenu = (props) => {
 
-  console.log(props)
-
   let menuContent
 
   if (props.menuType === "playerMenu") {
@@ -33,19 +31,19 @@ const tradeMenu = (props) => {
 
    const playerOptionMenu = <Fragment>
      <hr />
-     <TradeMenuItem>Opt in to last year of contract.</TradeMenuItem>
-     <TradeMenuItem>Opt out of last year of contract.</TradeMenuItem>
+     <TradeMenuItem click={()=> props.optInPlayerContract(props.player)}>Opt in to last year of contract.</TradeMenuItem>
+     <TradeMenuItem click={()=> props.optOutPlayerContract(props.player)}>Opt out of last year of contract.</TradeMenuItem>
    </Fragment>
 
    const teamOptionMenu = <Fragment>
      <hr />
-     <TradeMenuItem>Pick up team option.</TradeMenuItem>
-     <TradeMenuItem>Decline team option.</TradeMenuItem>
+     <TradeMenuItem click={()=> props.pickUpTeamOption(props.player)}>Pick up team option.</TradeMenuItem>
+     <TradeMenuItem click={()=> props.declineTeamOption(props.player)}>Decline team option.</TradeMenuItem>
    </Fragment>
 
    const extensionMessage = <Fragment>
      <hr />
-     <TradeMenuItem click={props.modalToggler}>Sign {props.player.name} to contract extension.</TradeMenuItem>
+     <TradeMenuItem click={()=> (props.selectModalTarget(props.player), props.modalToggler(props.player))}>Sign {props.player.name} to contract extension.</TradeMenuItem>
    </Fragment>
 
    menuContent = <Fragment>
@@ -67,19 +65,27 @@ const tradeMenu = (props) => {
  }
 
  if (props.menuType === "capHoldMenu") {
-   console.log(props);
    menuContent = (
      <Fragment>
-       <TradeMenuItem>Resign {props.player.name}</TradeMenuItem>
+       <TradeMenuItem click={()=> (props.selectModalTarget(props.player), props.modalToggler(props.player))}>Resign {props.player.name}.</TradeMenuItem>
+
        <hr />
        <TradeMenuItem click={props.renounceCapHold} arg1={props.player}>Renounce {props.player.name}</TradeMenuItem>
      </Fragment>
    )
  }
 
+ if (props.menuType === "teamMenu") {
+   menuContent = (
+     <Fragment>
+       <TradeMenuItem>Sign a Free Agent</TradeMenuItem>
+     </Fragment>
+   )
+ }
+
     return (
       <Fragment>
-        <Backdrop close={props.menuHandler}/>
+        <Backdrop close={props.menuToggler}/>
         <div className={styles.TradeMenu}>
           {menuContent}
         </div>

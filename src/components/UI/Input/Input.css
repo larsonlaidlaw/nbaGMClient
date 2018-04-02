@@ -1,16 +1,16 @@
 .Input {
-  width: 120px;
+  /* width: 120px; */
   /* height: 25px; */
   padding: 10px;
   box-sizing: border-box;
+  padding: 0px;
 
 }
 
 .Label {
   font-weight: bold;
   display: block;
-  margin-bottom: 8px;
-
+  /* margin-bottom: 8px; */
 }
 
 .InputElement {
@@ -19,7 +19,7 @@
   background-color: #fff;
   font: inherit;
 
-  padding: 6px 10px;
+  /* padding: 6px 10px; */
   display: block;
   width: 100%;
   box-sizing: border-box;

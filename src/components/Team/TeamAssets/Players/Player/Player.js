@@ -11,7 +11,7 @@ class Player extends Component {
     showMenu: false,
   }
 
-  menuHandler = (event) => {
+  menuToggler = (event) => {
     // console.log('hit the menuHandler');
     event.stopPropagation()
     this.setState({
@@ -80,12 +80,12 @@ class Player extends Component {
       <div>
         <div
           className={styles.MenuContainer}
-          onClick={this.menuHandler}>
+          onClick={this.menuToggler}>
           {this.state.showMenu &&
             <TradeMenu
-              onMouseDown={(event)=> this.menuHandler(event)}
+              onMouseDown={this.props.menuToggler}
               player={this.props.player}
-              menuHandler={this.menuHandler}
+              menuToggler={this.menuToggler}
               menuType={this.props.menuType}
               {...this.props}
             />}

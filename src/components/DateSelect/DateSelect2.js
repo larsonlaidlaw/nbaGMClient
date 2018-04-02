@@ -50,6 +50,8 @@ class DateSelect extends Component {
     }
   }
 
+
+
   componentDidMount () {
     const dateArray = []
 
@@ -85,7 +87,7 @@ class DateSelect extends Component {
 
       this.setState({
         changeTheDateForm: updatedForm,
-      }, ()=> this.props.changeDate(event, this.state.changeTheDateForm.year_id.value, this.state.changeTheDateForm.month_id.value, this.state.changeTheDateForm.date_id.value))    
+      })
     }
 
   render () {
@@ -100,8 +102,7 @@ class DateSelect extends Component {
     }
 
     let form = (
-      <form>
-        <div className={styles.FormContainer}>
+      <form onSubmit={this.addContractHandler}>
         {dateElementArray.map(formElement => (
           <Input
             key={formElement.id}
@@ -111,13 +112,13 @@ class DateSelect extends Component {
             changed={(event)=> this.inputChangedHandler(event, formElement.id)}
           />
         ))}
-        </div>
-        {/* <button onClick={(event)=>this.props.changeDate(event, this.state.changeTheDateForm.year_id.value, this.state.changeTheDateForm.month_id.value, this.state.changeTheDateForm.date_id.value)}>Change the Date</button> */}
+        <button onClick={(event)=>this.props.changeDate(event, this.state.changeTheDateForm.year_id.value, this.state.changeTheDateForm.month_id.value, this.state.changeTheDateForm.date_id.value)}>Change the Date</button>
+
       </form>
     )
 
     return (
-      <div className={styles.DateSelect}>
+      <div className={styles.AddContract}>
         {form}
       </div>
     )

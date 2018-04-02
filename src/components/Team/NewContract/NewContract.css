@@ -1,0 +1,8 @@
+.NewContract {
+
+}
+
+.SignWithContainer {
+  display: flex;
+  flex-direction: row;
+}

@@ -1,0 +1,9 @@
+.DateSelect {
+  width: 200px;
+}
+
+.FormContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

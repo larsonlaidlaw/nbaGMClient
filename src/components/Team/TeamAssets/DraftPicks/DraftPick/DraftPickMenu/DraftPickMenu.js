@@ -44,7 +44,7 @@ const draftPickMenu = (props) => {
       <Aux>
         <Backdrop menuClose={props.menuClose}/>
         <div className={styles.DraftPickMenu} >
-          <div>Trade {props.year} {props.round === 1 ? "1st" : "2nd"} pick round pick to:</div>
+          <div>Trade {props.pick.year} {props.pick.round === 1 ? "1st" : "2nd"} pick round pick to:</div>
           <hr />
           {tradeTeams}
         </div>

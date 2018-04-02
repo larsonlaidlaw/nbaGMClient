@@ -78,3 +78,59 @@ export const renounceCapHold = (player) => {
     player: player
   }
 }
+
+export const loadFreeAgents = (players) => {
+  return {
+    type: actionTypes.LOAD_FREE_AGENTS,
+    freeAgents: players
+  }
+}
+
+export const initFreeAgents = () => {
+  return dispatch => {
+    axios.get(`http://localhost:3000/players/`)
+    .then(response => {
+      dispatch(loadFreeAgents(response.data))
+    })
+    .catch( error => {
+      console.log(error)
+    })
+  }
+}
+
+export const optOutPlayerContract = (player) => {
+  return {
+    type: actionTypes.OPT_OUT_PLAYER_CONTRACT,
+    player: player
+  }
+}
+
+export const optInPlayerContract = (player) => {
+  return {
+    type: actionTypes.OPT_IN_PLAYER_CONTRACT,
+    player: player
+  }
+}
+
+export const pickUpTeamOption = (player) => {
+  return {
+    type: actionTypes.PICK_UP_TEAM_OPTION,
+    player: player
+  }
+}
+
+export const declineTeamOption = (player) => {
+  return {
+    type: actionTypes.DECLINE_TEAM_OPTION,
+    player: player
+  }
+}
+
+
+export const createNewContract = (player, team) => {
+  return {
+    type: actionTypes.CREATE_NEW_CONTRACT,
+    freeAgent: player,
+    team: team
+  }
+}

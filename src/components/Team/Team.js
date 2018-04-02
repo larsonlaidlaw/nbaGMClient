@@ -3,6 +3,8 @@ import React from 'react'
 import TeamHeader from './TeamHeader/TeamHeader'
 import TeamAssets from './TeamAssets/TeamAssets'
 import Modal from '../UI/Modal/Modal'
+import NewContract from './NewContract/NewContract'
+import SignFreeAgent from './SignFreeAgent/SignFreeAgent'
 
 import styles from './Team.css'
 
@@ -134,14 +136,27 @@ const team = (props) => {
     classes.push(styles.FreeAgents)
   }
 
+  let displayInModal = <SignFreeAgent {...props}/>
+
+  if (props.modalTarget && props.modalTarget.name) {
+    displayInModal = <NewContract player={props.modalTarget} {...props}/>
+  }
+
+  // console.log('from team component, props.modalTarget',props.modalTarget)
+  // if (props.modalTarget && props.modalTarget.name) {
+  //   console.log('from team component, props.modalTarget.name',props.modalTarget.name)
+  // }
+
   return (
     <div className={classes.join(' ')}>
-      <TeamHeader
-        {...props}/>
+      <div onClick={props.modalToggler}>
+        <TeamHeader
+          {...props}/>
+      </div>
       <TeamAssets
         {...props}
       />
-      {props.showModal && <Modal {...props}>Modal Stuff</Modal>}
+      {props.showModal && <Modal {...props}>{displayInModal}</Modal>}
     </div>
   )
 }
