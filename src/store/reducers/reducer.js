@@ -1,4 +1,7 @@
 import * as actionTypes from '../actions/actionTypes'
+import * as freeAgentHelpers from '../../helpers/freeAgentHelpers'
+import * as seasonInfo from '../../helpers/seasonInfo'
+
 
 const initialState = {
   allTeams: [],
@@ -7,17 +10,12 @@ const initialState = {
   seasonIndex: 0,
   freeAgents: [],
   seasonInfo: {
-    season: '2017-2018',
-    salaryCap: 99093000,
-    luxuryTax: 119266000,
-    apron: 125266000
+    season: seasonInfo.SEASON_STRING[0],
+    salaryCap: seasonInfo.SALARY_CAP_FIGURES[0],
+    luxuryTax: seasonInfo.LUXURY_TAX_FIGURES[0],
+    apron: seasonInfo.APRON_FIGURES[0]
   }
 }
-
-const SEASON_STRING = ['2017-2018','2018-2019', '2019-2020', '2020-2021', '2021-2022', '2022-2023']
-const SALARY_CAP_FIGURES = [99093000, 101000000, 108000000, 113400000]
-const LUXURY_TAX_FIGURES = [119266000, 123000000, 131000000, 137550000]
-const APRON_FIGURES = [125266000, 129000000, 137000000, 1000000000]
 
 const reducer = (state = initialState, action) => {
   const tradeTeams = JSON.parse(JSON.stringify(state.tradeTeams))
@@ -50,12 +48,13 @@ const reducer = (state = initialState, action) => {
 
       if (state.seasonIndex > 0) {
         selectedTeam.players.forEach(player => {
+          player.experience += 1
           if (player.contracts[0].seasons.length <= state.seasonIndex) {
             player.contracts[0].active = false
-            player.contracts[0].cap_hold = player.contracts[0].seasons[0].salary
+            // player.contracts[0].cap_hold = player.contracts[0].seasons[0].salary
+            player.contracts[0].cap_hold = freeAgentHelpers.calculateCapHold(player)
           }
           player.contracts[0].seasons.splice(0,state.seasonIndex)
-          player.experience += 1
         })
       }
 
@@ -88,7 +87,6 @@ const reducer = (state = initialState, action) => {
       }
 
     case actionTypes.ADD_ASSET_TO_TRADE:
-      console.log(tradeTeams);
       tradeTeams.forEach(team=> {
         if (team.id === action.current_team_id) {
           if (action.asset.name) {
@@ -179,7 +177,7 @@ const reducer = (state = initialState, action) => {
         if (!action.stretch) {
           for (let i = 0; i < waiveSeasons; i++) {
             let obj = {}
-            obj.season = SEASON_STRING[i]
+            obj.season = seasonInfo.SEASON_STRING[i]
             obj.player_id = grabPlayer.id
             obj.team_id = grabTeam.id
             obj.cap_hit = grabPlayer.contracts[0].seasons[i].guaranteed_salary
@@ -193,7 +191,7 @@ const reducer = (state = initialState, action) => {
             for (let i = 0; i < stretchSeasons; i++) {
               console.log(i);
               let obj = {}
-              obj.season = SEASON_STRING[i]
+              obj.season = seasonInfo.SEASON_STRING[i]
               obj.player_id = grabPlayer.id
               obj.team_id = grabTeam.id
               obj.cap_hit = guaranteedSalaryRemaining / stretchSeasons
@@ -204,7 +202,7 @@ const reducer = (state = initialState, action) => {
             guaranteedSalaryRemaining = guaranteedSalaryRemaining - currentSeasonSalary
             for (let i = 0; i < stretchSeasons; i++) {
               let obj = {}
-              obj.season = SEASON_STRING[i]
+              obj.season = seasonInfo.SEASON_STRING[i]
               obj.player_id = grabPlayer.id
               obj.team_id = grabTeam.id
               obj.cap_hit = guaranteedSalaryRemaining / stretchSeasons
@@ -247,10 +245,10 @@ const reducer = (state = initialState, action) => {
         return {
           ...state,
           seasonInfo: {
-            season: SEASON_STRING[state.seasonIndex],
-            salaryCap: SALARY_CAP_FIGURES[state.seasonIndex],
-            luxuryTax: LUXURY_TAX_FIGURES[state.seasonIndex],
-            apron: APRON_FIGURES[state.seasonIndex]
+            season: seasonInfo.SEASON_STRING[state.seasonIndex],
+            salaryCap: seasonInfo.SALARY_CAP_FIGURES[state.seasonIndex],
+            luxuryTax: seasonInfo.LUXURY_TAX_FIGURES[state.seasonIndex],
+            apron: seasonInfo.APRON_FIGURES[state.seasonIndex]
           }
         }
 

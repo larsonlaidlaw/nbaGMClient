@@ -76,6 +76,12 @@ class Player extends Component {
 
   render (){
 
+    let classes = [styles.Player]
+
+    // if (this.props.player.contracts[0].seasons[0].player_option) {
+    //   classes.push = styles.PlayerOption
+    // }
+
     return (
       <div>
         <div
@@ -89,7 +95,7 @@ class Player extends Component {
               menuType={this.props.menuType}
               {...this.props}
             />}
-          <div className={styles.Player} >
+          <div className={classes.join(' ')} >
               <CircleImage fileName={this.props.player.slug} />
               <div className={styles.PlayerInfo}>
                 <div><span>{this.props.player.name}</span></div>

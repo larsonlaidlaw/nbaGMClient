@@ -1,10 +1,12 @@
 import React from 'react'
 
+import TransactionFeedback from './TransactionFeedback/TransactionFeedback'
 import TeamHeader from './TeamHeader/TeamHeader'
 import TeamAssets from './TeamAssets/TeamAssets'
 import Modal from '../UI/Modal/Modal'
 import NewContract from './NewContract/NewContract'
 import SignFreeAgent from './SignFreeAgent/SignFreeAgent'
+// import * as tradeHelpers from '../../helpers/tradeHelpers'
 
 import styles from './Team.css'
 
@@ -142,21 +144,25 @@ const team = (props) => {
     displayInModal = <NewContract player={props.modalTarget} {...props}/>
   }
 
-  // console.log('from team component, props.modalTarget',props.modalTarget)
-  // if (props.modalTarget && props.modalTarget.name) {
-  //   console.log('from team component, props.modalTarget.name',props.modalTarget.name)
-  // }
+  let showFeedback = false
+
+  props.tradeTeams.forEach(team => {
+    if (team.targetAssets && team.targetAssets.length > 0) {
+      showFeedback = true
+    }
+  })
 
   return (
     <div className={classes.join(' ')}>
-      <div onClick={props.modalToggler}>
+      {  showFeedback && <div><TransactionFeedback {...props}/></div>  }
+      <div onClick={(event)=> (console.log(event.target), props.modalToggler(null, props.team))}>
         <TeamHeader
           {...props}/>
       </div>
       <TeamAssets
         {...props}
       />
-      {props.showModal && <Modal {...props}>{displayInModal}</Modal>}
+      {props.showModal && props.modalTeamID === props.team.id && <Modal {...props}>{displayInModal}</Modal>}
     </div>
   )
 }

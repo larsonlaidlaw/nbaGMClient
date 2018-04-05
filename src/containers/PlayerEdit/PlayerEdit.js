@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
+const BASE_URL = process.env.REACT_APP_API
+
+
 class PlayerEdit extends Component {
 
   componentDidMount () {
-    axios.get('http://localhost:3000/players.json', this.props.match.url)
+    axios.get(`${BASE_URL}/players.json`, this.props.match.url)
     .then( res => {
       console.log(res.data);
     })

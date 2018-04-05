@@ -6,6 +6,8 @@ import Button from '../../components/UI/Button/Button'
 
 import styles from './AddPlayer.css'
 
+const BASE_URL = process.env.REACT_APP_API
+
 class AddPlayer extends Component {
 
   state = {
@@ -41,7 +43,7 @@ class AddPlayer extends Component {
   }
 
   componentDidMount () {
-    axios.get('http://localhost:3000/teams.json')
+    axios.get(`${BASE_URL}/teams.json`)
     .then( res => {
       console.log(res.data)
     })
@@ -79,7 +81,7 @@ class AddPlayer extends Component {
       }
       console.log(player);
 
-      axios.post('http://localhost:3000/players', player)
+      axios.post(`${BASE_URL}/players`, player)
       .then((response)=> {
         console.log(response);
       })

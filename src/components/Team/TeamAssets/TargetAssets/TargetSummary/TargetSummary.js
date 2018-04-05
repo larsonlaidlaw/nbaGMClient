@@ -9,8 +9,6 @@ const targetSummary = (props) => {
   let numOfPicks = 0
   let totalSalary = 0
 
-  console.log(props.team.targetAssets.length);
-
   props.team.targetAssets.forEach(asset =>{
     if (asset.name) {
       numOfPlayers += 1

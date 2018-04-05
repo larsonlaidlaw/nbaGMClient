@@ -24,14 +24,14 @@ class DateSelect extends Component {
             { value: 11, displayValue: 'December' }
           ]
         },
-        value: 0
+        value: 3
       },
       date_id: {
         elementType: 'select',
         elementConfig: {
           options: [ { value: 1, displayValue: 1 } ]
         },
-        value: 1
+        value: 2
       },
       year_id: {
         elementType: 'select',
@@ -85,7 +85,7 @@ class DateSelect extends Component {
 
       this.setState({
         changeTheDateForm: updatedForm,
-      }, ()=> this.props.changeDate(event, this.state.changeTheDateForm.year_id.value, this.state.changeTheDateForm.month_id.value, this.state.changeTheDateForm.date_id.value))    
+      }, ()=> this.props.changeDate(event, this.state.changeTheDateForm.year_id.value, this.state.changeTheDateForm.month_id.value, this.state.changeTheDateForm.date_id.value))
     }
 
   render () {

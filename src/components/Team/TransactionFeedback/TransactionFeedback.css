@@ -1,0 +1,30 @@
+.TransactionFeedback {
+  display: flex;
+  flex-direction: column;
+  background-color: #eee;
+  width: 100%;
+  font-size: 9pt;
+  /* margin-top: 1rem; */
+  border: 1px solid transparent;
+  box-sizing: border-box;
+}
+
+
+.Valid {
+  padding: .75rem 1.25rem;
+  background-color: #d4edda;
+  color: #155724;
+  border-color: #c3e6cb;
+  border-radius: .25rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.inValid {
+  padding: .75rem 1.25rem;
+  background-color: #f8d7da;
+  color: #721c24;
+  border-radius: .25rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}

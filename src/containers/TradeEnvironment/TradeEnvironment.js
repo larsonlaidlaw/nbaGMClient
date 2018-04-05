@@ -12,14 +12,19 @@ class TradeEnvironment extends Component {
 
   state = {
     showModal: false,
+    modalTeamID: null,
     modalTarget: null
   }
 
-  modalToggler = (player) => {
+  modalToggler = (player, team) => {
     console.log('we in here')
+    if (team) {
+      console.log(team.id)
+    }
 
     this.setState({
       showModal: !this.state.showModal,
+      modalTeamID: team ? team.id : null,
       modalTarget: this.state.modalTarget ? null : player
     })
   }
@@ -84,6 +89,7 @@ class TradeEnvironment extends Component {
             renounceCapHold={this._renounceCapHold}
             showModal={this.state.showModal}
             modalToggler={this.modalToggler}
+            modalTeamID={this.state.modalTeamID}
             modalTarget={this.state.modalTarget}
             selectModalTarget={this.selectModalTarget}
             seasonInfo={this.props.seasonInfo}
@@ -92,6 +98,7 @@ class TradeEnvironment extends Component {
             pickUpTeamOption={this._pickUpTeamOption}
             declineTeamOption={this._declineTeamOption}
             createNewContract={this._createNewContract}
+            tradeTeams={this.props.tradeTeams}
           />
           })}
       </div>

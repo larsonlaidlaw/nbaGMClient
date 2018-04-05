@@ -5,12 +5,13 @@ import axios from 'axios'
 import styles from './TeamSelector.css'
 import * as actions from '../../store/actions/actions'
 
+const BASE_URL = process.env.REACT_APP_API
 
 class TeamSelector extends Component {
 
   componentWillMount () {
 
-    const url = 'http://localhost:3000/teams/'
+    const url = `${BASE_URL}/teams/`
 
     axios.get(url)
     .then( (response) => {

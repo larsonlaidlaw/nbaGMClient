@@ -1,6 +1,8 @@
 import axios from 'axios'
 import * as actionTypes from './actionTypes'
 
+const BASE_URL = process.env.REACT_APP_API
+
 export const loadTeams = (teams) => {
   return {
     type: actionTypes.LOAD_TEAMS,
@@ -17,7 +19,7 @@ const loadTradeTeamData = (teamData) => {
 
 export const initTeamTradeData = (team) => {
   return dispatch => {
-    axios.get(`http://localhost:3000/teams/${team.id}`)
+    axios.get(`${BASE_URL}/teams/${team.id}`)
     .then(response => {
       dispatch(loadTradeTeamData(response.data))
     })
@@ -88,7 +90,7 @@ export const loadFreeAgents = (players) => {
 
 export const initFreeAgents = () => {
   return dispatch => {
-    axios.get(`http://localhost:3000/players/`)
+    axios.get(`${BASE_URL}/players/`)
     .then(response => {
       dispatch(loadFreeAgents(response.data))
     })

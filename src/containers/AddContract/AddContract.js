@@ -6,6 +6,8 @@ import Button from '../../components/UI/Button/Button'
 
 import styles from './AddContract.css'
 
+const BASE_URL = process.env.REACT_APP_API
+
 class AddContract extends Component {
 
   state = {
@@ -66,7 +68,7 @@ class AddContract extends Component {
   }
 
   componentDidMount () {
-    axios.get('http://localhost:3000/teams.json')
+    axios.get(`${BASE_URL}/teams.json`)
     .then( res => {
       console.log(res.data)
 
@@ -109,7 +111,7 @@ class AddContract extends Component {
       })
 
       if (id === 'team_id') {
-        axios.get(`http://localhost:3000/teams/${updatedFormElement.value}.json`)
+        axios.get(`${BASE_URL}/teams/${updatedFormElement.value}.json`)
         .then( res => {
           console.log(res.data.players)
           const playerArray = [{value: 0, displayValue: 'Select Player'}]

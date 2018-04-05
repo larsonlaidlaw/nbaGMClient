@@ -67,7 +67,7 @@ const tradeMenu = (props) => {
  if (props.menuType === "capHoldMenu") {
    menuContent = (
      <Fragment>
-       <TradeMenuItem click={()=> (props.selectModalTarget(props.player), props.modalToggler(props.player))}>Resign {props.player.name}.</TradeMenuItem>
+       <TradeMenuItem click={()=> (props.selectModalTarget(props.player), props.modalToggler(props.player, props.team))}>Resign {props.player.name}.</TradeMenuItem>
 
        <hr />
        <TradeMenuItem click={props.renounceCapHold} arg1={props.player}>Renounce {props.player.name}</TradeMenuItem>
