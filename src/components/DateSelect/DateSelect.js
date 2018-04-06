@@ -40,9 +40,7 @@ class DateSelect extends Component {
             { value: 2018, displayValue: '2018' },
             { value: 2019, displayValue: '2019' },
             { value: 2020, displayValue: '2020' },
-            { value: 2021, displayValue: '2021' },
-            { value: 2022, displayValue: '2022' },
-            { value: 2023, displayValue: '2023' },
+            { value: 2021, displayValue: '2021' }
           ]
         },
         value: 2018
