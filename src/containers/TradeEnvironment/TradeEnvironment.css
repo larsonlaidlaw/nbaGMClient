@@ -8,3 +8,11 @@
   flex-wrap: wrap;
   box-sizing: border-box;
 }
+
+.noTradeTeams {
+  margin-top: 75px;
+  padding: 10px;
+  height: 100px;
+  font-size: 30pt;
+  font-weight: bold;
+}

@@ -21,7 +21,6 @@ export const hasTeamOption = (player) => {
 
 export const playerUnderContract = (player) => {
    if (player.contracts[0].seasons.length >= 1) {
-     // const last_season_index = player.contracts[0].seasons.length - 1
      return true
    }
    return false

@@ -6,15 +6,15 @@ import SeasonInfo from '../SeasonInfo/SeasonInfo'
 class Layout extends React.Component {
   render () {
     return (
-      <Aux>
+      <div className={styles.Layout}>
         <SeasonInfo />
-        <main className={styles.Layout}>
+        <main >
           {this.props.children}
         </main>
         <div className={styles.footer}>
           Bluescreen Co 2018
         </div>
-      </Aux>
+      </div>
     )
   }
 }

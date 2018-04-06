@@ -12,7 +12,7 @@ import TradeEnvironment from './containers/TradeEnvironment/TradeEnvironment'
 class App extends Component {
   render() {
     return (
-      <div >
+      // <div>
         <Layout>
           <Route path='/' component={ TeamSelector} />
           <Switch>
@@ -22,7 +22,7 @@ class App extends Component {
             <Route path='/' component={ TradeEnvironment } />
           </Switch>
         </Layout>
-      </div>
+      // </div>
     );
   }
 }

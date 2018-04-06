@@ -75,9 +75,13 @@ class TradeEnvironment extends Component {
   render () {
     const tradeTeams = this.props.tradeTeams
 
-    return (
-      <div className={styles.TradeEnvironment}>
-        {tradeTeams.map((team)=> {
+    let renderTradeTeams = (
+      <div className={styles.noTradeTeams}>Click on a team to start.</div>
+    )
+
+    if (tradeTeams.length > 0) {
+      renderTradeTeams = (
+        tradeTeams.map((team)=> {
           return <Team
             key={team.id}
             team={team}
@@ -100,7 +104,13 @@ class TradeEnvironment extends Component {
             createNewContract={this._createNewContract}
             tradeTeams={this.props.tradeTeams}
           />
-          })}
+        })
+      )
+    }
+
+    return (
+      <div className={styles.TradeEnvironment}>
+        {renderTradeTeams}
       </div>
     )
   }

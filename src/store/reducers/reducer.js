@@ -1,5 +1,5 @@
 import * as actionTypes from '../actions/actionTypes'
-import * as freeAgentHelpers from '../../helpers/freeAgentHelpers'
+import * as contractEndingHelpers from '../../helpers/contractEndingHelpers'
 import * as seasonInfo from '../../helpers/seasonInfo'
 
 
@@ -51,8 +51,10 @@ const reducer = (state = initialState, action) => {
           player.experience += 1
           if (player.contracts[0].seasons.length <= state.seasonIndex) {
             player.contracts[0].active = false
+            //should add this to the rails tables
+            player.contracts[0].previousSeasonSalary = player.contracts[0].seasons[0].salary
             // player.contracts[0].cap_hold = player.contracts[0].seasons[0].salary
-            player.contracts[0].cap_hold = freeAgentHelpers.calculateCapHold(player)
+            player.contracts[0].cap_hold = contractEndingHelpers.calculateCapHold(player)
           }
           player.contracts[0].seasons.splice(0,state.seasonIndex)
         })
@@ -264,7 +266,8 @@ const reducer = (state = initialState, action) => {
 
       case actionTypes.OPT_OUT_PLAYER_CONTRACT:
         grabPlayer.contracts[0].active = false
-        grabPlayer.contracts[0].cap_hold = grabPlayer.contracts[0].seasons[0].salary
+        // grabPlayer.contracts[0].cap_hold = grabPlayer.contracts[0].seasons[0].salary
+        grabPlayer.contracts[0].cap_hold = contractEndingHelpers.calculateCapHold(grabPlayer)
         grabPlayer.contracts.seasons = []
         freeAgents.push(grabPlayer)
 
@@ -292,7 +295,7 @@ const reducer = (state = initialState, action) => {
 
       case actionTypes.DECLINE_TEAM_OPTION:
         grabPlayer.contracts[0].seasons[0].team_option = false
-        grabPlayer.contracts[0].cap_hold = grabPlayer.contracts[0].seasons[0].salary
+        grabPlayer.contracts[0].cap_hold = contractEndingHelpers.calculateCapHold(grabPlayer)
         grabPlayer.contracts.seasons = []
         freeAgents.push(grabPlayer)
 

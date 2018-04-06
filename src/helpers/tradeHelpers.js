@@ -1,40 +1,33 @@
 import * as seasonInfo from './seasonInfo'
+import * as teamSalaryHelpers from './teamSalaryHelpers'
 import * as helpers from './helpers'
 
 export const isTradeValid = (team, seasonInfo) => {
-  if (isUnderSalaryCap(team, seasonInfo)) {
+  if (teamSalaryHelpers.isUnderSalaryCap(team, seasonInfo)) {
     return true
   }
 
-  if (isUnderLuxuryTax(team, seasonInfo)) {
+  if (teamSalaryHelpers.isUnderLuxuryTax(team, seasonInfo)) {
     return nonTaxPaying(team)
   }
 
-  if (!isUnderLuxuryTax(team, seasonInfo)) {
+  if (!teamSalaryHelpers.isUnderLuxuryTax(team, seasonInfo)) {
     return taxPaying(team)
   }
-}
-
-export const isUnderSalaryCap = (team, seasonInfo) => {
-  return seasonInfo.salaryCap + 100000 > calculateTeamTotalSalary(team) ? true : false
-}
-
-export const isUnderLuxuryTax = (team, seasonInfo) => {
-  return seasonInfo.luxuryTax > calculateTeamTotalSalary(team) ? true : false
 }
 
 export const transactionFeedback = (team, seasonInfo) => {
   let message = ''
 
-  if (isUnderSalaryCap(team, seasonInfo)) {
+  if (teamSalaryHelpers.isUnderSalaryCap(team, seasonInfo)) {
     message = `the ${team.team_name} are under the Salary Cap`
   }
 
-  if (isUnderLuxuryTax(team, seasonInfo)) {
+  if (teamSalaryHelpers.isUnderLuxuryTax(team, seasonInfo)) {
     message = `the ${team.team_name} over the Salary Cap but not yet into the Luxury Tax`
   }
 
-  if (!isUnderLuxuryTax(team, seasonInfo)) {
+  if (!teamSalaryHelpers.isUnderLuxuryTax(team, seasonInfo)) {
     message = `the ${team.team_name} into the Luxury Tax`
   }
 
@@ -66,31 +59,24 @@ export const maxIncoming = (team) => {
 }
 
 export const requiredOutgoing = (team, seasonInfo) => {
-  if (isUnderLuxuryTax(team, seasonInfo)) {
-    // console.log(`${team.team_name} under the tax`)
+  if (teamSalaryHelpers.isUnderLuxuryTax(team, seasonInfo)) {
     if ((calculateIncomingSalary(team) - 100000) / 1.75 < 6533333 ) {
-      // console.log(`${team.team_name} a`)
       return (calculateIncomingSalary(team) - 100000) / 1.75
     }
 
     if ((calculateIncomingSalary(team) - 5000000) > 6533333 && (calculateIncomingSalary(team) - 5000000) < 19600000 ) {
-      // console.log(`${team.team_name} b`)
       return  calculateIncomingSalary(team) - 5000000
     }
 
     if ((calculateIncomingSalary(team) - 100000) / 1.25 > 19600000) {
-      // console.log(`${team.team_name} c`)
       return (calculateIncomingSalary(team) - 100000) / 1.25
     }
   } else {
-    // console.log(`${team.team_name} over the tax, d`)
     return (calculateIncomingSalary(team) - 100000) / 1.25
   }
 }
 
 export const nonTaxPaying = (team) => {
-  console.trace()
-  console.log(team.team_name, 'nonTaxPaying');
   if (calculateOutgoingSalary(team) < 6533333) {
     return calculateOutgoingSalary(team) * 1.75 + 100000 >= calculateIncomingSalary(team) ? true : false
   }
@@ -105,20 +91,7 @@ export const nonTaxPaying = (team) => {
 }
 
 export const taxPaying = (team) => {
-  console.log(team.team_name, 'taxpaying');
   return calculateOutgoingSalary(team) * 1.25 + 100000 >= calculateIncomingSalary(team) ? true : false
-}
-
-export const calculateTeamTotalSalary = (team) => {
-  let totalTeamSalary = 0
-
-  totalTeamSalary += calculateActivePlayerSalary(team)
-  totalTeamSalary+= calculateCapHolds(team)
-  totalTeamSalary += calculateDeadCap(team)
-  totalTeamSalary += calculateIncomingSalary(team)
-  totalTeamSalary -= calculateOutgoingSalary(team)
-
-  return totalTeamSalary
 }
 
 export const calculateIncomingSalary = (team) => {
@@ -143,36 +116,4 @@ export const calculateOutgoingSalary = (team) => {
     }
   })
   return outgoingSalary
-}
-
-export const calculateActivePlayerSalary = (team) => {
-  let activeSalary = 0
-  team.players.forEach(player => {
-    if (player.contracts[0].active) {
-      activeSalary += player.contracts[0].seasons[0].salary
-    }
-  })
-  return activeSalary
-}
-
-export const calculateCapHolds = (team) => {
-  let capHolds = 0
-  team.players.forEach(player => {
-    if (!player.contracts[0].active && !player.contracts[0].dead_seasons[0]) {
-      capHolds += player.contracts[0].cap_hold
-    }
-  })
-
-  return capHolds
-}
-
-export const calculateDeadCap = (team) => {
-  let deadCap = 0
-  team.players.forEach(player => {
-    if (!player.contracts[0].active && player.contracts[0].dead_seasons[0]) {
-      deadCap += player.contracts[0].dead_seasons[0].cap_hit
-    }
-  })
-
-  return deadCap
 }

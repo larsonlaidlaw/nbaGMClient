@@ -1,6 +1,8 @@
 import React, { Fragment, Component } from 'react'
 
 import * as helpers from '../../../helpers/helpers'
+import * as newContractHelpers from '../../../helpers/newContractHelpers'
+import * as teamSalaryHelpers from '../../../helpers/teamSalaryHelpers'
 import styles from './NewContract.css'
 
 class NewContract extends Component {
@@ -8,11 +10,14 @@ class NewContract extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      startingSalary: newContractHelpers.calculatePlayerMaxSalary(this.props.player, this.props.seasonInfo),
+      maxStartingSalary: 0,
       contractLength: 1,
+      maxContractLength: 4,
+      raises: .00,
+      maxRaises: .00,
       playerOption: false,
       teamOption: false,
-      startingSalary: this.maxStartingSalary(this.props.player, this.props.seasonInfo),
-      raises: .08
     }
   }
 
@@ -34,8 +39,13 @@ class NewContract extends Component {
   }
 
   salaryUpdateHandler = (event) => {
+    let newStartingSalary = parseInt(event.target.value)
+    // if (newStartingSalary > this.state.maxStartingSalary) {
+    //   newStartingSalary = this.state.maxStartingSalary
+    // }
+
     this.setState({
-      startingSalary: parseInt(event.target.value)
+      startingSalary: newStartingSalary
     })
   }
 
@@ -45,59 +55,75 @@ class NewContract extends Component {
     })
   }
 
-  submitHandler = (event) => {
-    event.preventDefault()
-  }
 
   setMaxSalary = () => {
     this.setState({
-      startingSalary: this.maxStartingSalary(this.props.player, this.props.seasonInfo)
+      startingSalary: newContractHelpers.calculatePlayerMaxSalary(this.props.player, this.props.seasonInfo)
     })
   }
 
   setMinSalary = () => {
     this.setState({
-      startingSalary : this.minimumStartingSalary(this.props.player)
+      startingSalary: newContractHelpers.calculatePlayerMinSalary(this.props.player)
     })
   }
 
-  maxStartingSalary = (player, seasonInfo) => {
-    let startingSalary = 0
-    let salaryCap = seasonInfo.salaryCap
-
-    if (player.experience <= 6) {
-      startingSalary = .25 * salaryCap
-    }
-    if (player.experience >= 7 && player.experience <= 9) {
-      startingSalary = .3 * salaryCap
-    }
-    if (player.experience >= 10) {
-      startingSalary = .35 * salaryCap
-    }
-    return Math.round(startingSalary)
+  capSpaceHandler = (obj) => {
+    this.setState({
+      maxRaises: .05,
+      maxContractLength: 4,
+      startingSalary: obj.startingSalary,
+      maxStartingSalary: obj.startingSalary
+    })
   }
 
-  minimumStartingSalary = (player) => {
-    const minimumSalaries = [815615, 1312611, 1471382, 1524305, 1577230, 1709538, 1841849, 1974159, 2106470, 2116955, 2328652]
-    let experience = player.experience
-    if (experience > 10) {
-      experience = 10
-    }
-    return minimumSalaries[experience]
+  midLevelHandler = (obj) => {
+    this.setState({
+      maxRaises: .05,
+      maxContractLength: obj.maxContractLength,
+      startingSalary: obj.startingSalary,
+      maxStartingSalary: obj.startingSalary
+    })
   }
 
-  maxCapPercentage = (player, ) => {
-    let maxPercentage = 0
-    if (player.experience <= 6) {
-      maxPercentage = .25
-    }
-    if (player.experience >= 7 && player.experience <= 9) {
-      maxPercentage = .3
-    }
-    if (player.experience >= 10) {
-      maxPercentage = .35
-    }
-    return maxPercentage
+  minimumHandler = () => {
+    this.setState({
+      maxRaises: .05,
+      maxContractLength: 2,
+      maxStartingSalary: newContractHelpers.calculatePlayerMinSalary(this.props.player),
+      startingSalary: newContractHelpers.calculatePlayerMinSalary(this.props.player)
+    })
+  }
+
+  birdRightsHandler = (obj) => {
+    console.log('birdrightshandler', obj);
+    this.setState({
+      maxRaises: obj.raises,
+      maxContractLength: obj.maxContractLength,
+      maxStartingSalary: obj.maxStartingSalary,
+      startingSalary: obj.startingSalary
+    })
+  }
+
+  submitHandler = (event) => {
+    event.preventDefault()
+  }
+
+  playerOptionHandler = () => {
+
+    let newPlayerOptionState = !this.state.playerOption
+    this.setState({
+      playerOption: newPlayerOptionState,
+      teamOption: false
+    })
+  }
+
+  teamOptionHandler = () => {
+    let newTeamOptionState = !this.state.teamOption
+    this.setState({
+      teamOption: newTeamOptionState,
+      playerOption: false
+    })
   }
 
   createNewContract = (player, team) => {
@@ -130,23 +156,23 @@ class NewContract extends Component {
     this.props.player.contracts.unshift(completedContract)
   }
 
-
-
   render () {
+
+    let totalContractAmount = 0
 
     let inputs = this.startingSalaryHandler(this.state.startingSalary, this.state.raises).map( (salary, i) => {
       if (i === 0) {
+        totalContractAmount += salary
         return <div key={i}><input
           type="text"
-          name="what"
           placeholder={salary}
           value={salary}
           onChange={(event)=> this.salaryUpdateHandler(event)} />
         </div>
       } else {
+        totalContractAmount += salary
         return <div key={i}><input
           type="text"
-          name="what"
           placeholder={salary}
           value={salary}
           onChange={(event)=> this.salaryUpdateHandler(event)}
@@ -156,41 +182,51 @@ class NewContract extends Component {
       }
     })
 
+    if (inputs.length > this.state.maxContractLength) {
+      inputs.pop()
+    }
+
     return (
       <Fragment>
         <div>{this.props.player.name} has {this.props.player.experience} years of experience in the NBA.</div>
-        <div>Maximum Salary: {helpers.formatMoney(this.maxStartingSalary(this.props.player, this.props.seasonInfo))}</div>
-        <div>Minimum Salary: {helpers.formatMoney(this.minimumStartingSalary(this.props.player))}</div>
+
+        <div>Maximum Salary: {helpers.formatMoney(newContractHelpers.calculatePlayerMaxSalary(this.props.player, this.props.seasonInfo))}</div>
+
+        <div>Minimum Salary: {helpers.formatMoney(newContractHelpers.calculatePlayerMinSalary(this.props.player))}</div>
+
+        {teamSalaryHelpers.calculateTeamTotalSalary(this.props.team) < this.props.seasonInfo.salaryCap ?
+          <div>
+            The {this.props.team.team_name} have {helpers.formatMoney(this.props.seasonInfo.salaryCap - teamSalaryHelpers.calculateTeamTotalSalary(this.props.team, this.props.seasonInfo.salaryCap))} in Cap Space available.
+          </div> :
+           <div>
+             The {this.props.team.team_name} are over the Salary Cap.
+           </div>
+         }
+
         <form onSubmit={(event)=> this.submitHandler(event)}>
           <div className={styles.SignWithContainer}>
-            <div>
+            {teamSalaryHelpers.isUnderSalaryCap(this.props.team, this.props.seasonInfo) && <div>
               <label>
+                <input type="radio" name="sign_with" onChange={()=> this.capSpaceHandler(newContractHelpers.useCapSpace(this.props.player, this.props.team, this.props.seasonInfo))}/>
                 Cap Space
-                <input type="radio" name="sign_with" />
               </label>
-            </div>
-            <div>
+            </div>}
+            {newContractHelpers.birdRights(this.props.player, this.props.team, this.props.seasonInfo) && <div>
               <label>
+                <input type="radio" name="sign_with" onChange={()=> this.birdRightsHandler(newContractHelpers.birdRights(this.props.player, this.props.team, this.props.seasonInfo))}/>
                 Bird Rights
-                <input type="radio" name="sign_with" />
               </label>
-            </div>
+            </div>}
             <div>
               <label>
-                Non Bird Rights
-                <input type="radio" name="sign_with" />
-              </label>
-            </div>
-            <div>
-              <label>
+                <input type="radio" name="sign_with" onChange={()=> this.midLevelHandler(newContractHelpers.midLevelException(newContractHelpers.whichMidLevel(this.props.team, this.props.seasonInfo)))}/>
                 Mid Level Exception
-                <input type="radio" name="sign_with" />
               </label>
             </div>
             <div>
               <label>
+                <input type="radio" name="sign_with" onChange={()=> this.minimumHandler()}/>
                 Minimum
-                <input type="radio" name="sign_with" />
               </label>
             </div>
           </div>
@@ -201,10 +237,10 @@ class NewContract extends Component {
               <select onChange={(event)=> this.contractLengthHandler(event)} value={this.state.contractLength}>
                 {/* <option value="0">Choose Contract Length</option> */}
                 <option value="1">1 year</option>
-                <option value="2">2 years</option>
-                <option value="3">3 years</option>
-                <option value="4">4 years</option>
-                <option value="5">5 years</option>
+                {this.state.maxContractLength > 1 && <option value="2">2 years</option> }
+                {this.state.maxContractLength > 2 && <option value="3">3 years</option> }
+                {this.state.maxContractLength > 3 && <option value="4">4 years</option> }
+                {this.state.maxContractLength > 4 && <option value="5">5 years</option> }
               </select>
             </label>
           </div>
@@ -213,43 +249,46 @@ class NewContract extends Component {
             <label>
               Raises
               <select onChange={(event)=> this.raisesHandler(event)} value={this.state.raises}>
-                <option value=".08">8 percent</option>
-                <option value=".07">7 percent</option>
-                <option value=".06">6 percent</option>
+                <option value=".00" >No Raises</option>
+                {this.state.maxRaises > .07 && <option value=".08">8 percent</option>}
+                {this.state.maxRaises > .06 && <option value=".07">7 percent</option>}
+                {this.state.maxRaises > .05 && <option value=".06">6 percent</option>}
                 <option value=".05">5 percent</option>
                 <option value=".04">4 percent</option>
                 <option value=".03">3 percent</option>
                 <option value=".02">2 percent</option>
                 <option value=".01">1 percent</option>
-                <option value=".00" >No Raises</option>
                 <option value="-.01">-1 percent</option>
                 <option value="-.02">-2 percent</option>
                 <option value="-.03">-3 percent</option>
                 <option value="-.04">-4 percent</option>
                 <option value="-.05">-5 percent</option>
-                <option value="-.06">-6 percent</option>
-                <option value="-.07">-7 percent</option>
-                <option value="-.08">-8 percent</option>
+                {this.state.maxRaises > .05 && <option value="-.06">-6 percent</option>}
+                {this.state.maxRaises > .06 && <option value="-.07">-7 percent</option>}
+                {this.state.maxRaises > .07 && <option value="-.08">-8 percent</option>}
               </select>
             </label>
           </div>}
 
-          <div>
-              <label>
-                Set Salary To Max
-                <input type="radio" name="set_salary" onChange={this.setMaxSalary}/>
-              </label>
-              <label>
-                Set Salary to Minimum
-                <input type="radio" name="set_salary" onChange={this.setMinSalary}/>
-              </label>
-          </div>
-
           {inputs}
 
-          <div>Include a player option:<input type="checkbox" id="player_option" name="player_option" value="player_option" /></div>
-          <div>Include a team option:<input type="checkbox" id="team_option" name="team_option" value="team_option" /></div>
-          <button onClick={()=> (this.saveContractToPlayer(), this.props.createNewContract(this.props.player, this.props.team))}>Sign Player to Contract</button>
+          <div>Include a player option:<input
+            type="checkbox"
+            id="player_option"
+            name="player_option"
+            checked={this.state.playerOption}
+            value={this.state.playerOption}
+            onChange={this.playerOptionHandler}
+          /></div>
+          <div>Include a team option:<input
+            type="checkbox"
+            id="team_option"
+            name="team_option"
+            checked={this.state.teamOption}
+            value="team_option"
+            onChange={this.teamOptionHandler}
+          /></div>
+          <button onClick={()=> (this.saveContractToPlayer(), this.props.createNewContract(this.props.player, this.props.team))}>Sign {this.props.player.name} to a {this.state.contractLength} year / {helpers.formatMoney(totalContractAmount)} contract</button>
 
         </form>
       </Fragment>
