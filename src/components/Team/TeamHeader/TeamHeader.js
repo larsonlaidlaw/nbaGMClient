@@ -71,6 +71,7 @@ const teamHeader = (props) => {
           <div>Cap Holds | {helpers.formatMoney(calculateTeamSalary(props.team)[2])}</div> */}
         </div>
         <TeamLogo team={props.team}/>
+        <div className={styles.HeaderHover}>To sign a Free Agent, click here.</div>
       </div>
     </div>
   )

@@ -18,6 +18,7 @@ class NewContract extends Component {
       maxRaises: .00,
       playerOption: false,
       teamOption: false,
+      signMethodSelected: false
     }
   }
 
@@ -73,7 +74,9 @@ class NewContract extends Component {
       maxRaises: .05,
       maxContractLength: 4,
       startingSalary: obj.startingSalary,
-      maxStartingSalary: obj.startingSalary
+      maxStartingSalary: obj.startingSalary,
+      signMethodSelected: true
+
     })
   }
 
@@ -82,7 +85,8 @@ class NewContract extends Component {
       maxRaises: .05,
       maxContractLength: obj.maxContractLength,
       startingSalary: obj.startingSalary,
-      maxStartingSalary: obj.startingSalary
+      maxStartingSalary: obj.startingSalary,
+      signMethodSelected: true
     })
   }
 
@@ -91,7 +95,8 @@ class NewContract extends Component {
       maxRaises: .05,
       maxContractLength: 2,
       maxStartingSalary: newContractHelpers.calculatePlayerMinSalary(this.props.player),
-      startingSalary: newContractHelpers.calculatePlayerMinSalary(this.props.player)
+      startingSalary: newContractHelpers.calculatePlayerMinSalary(this.props.player),
+      signMethodSelected: true
     })
   }
 
@@ -101,7 +106,8 @@ class NewContract extends Component {
       maxRaises: obj.raises,
       maxContractLength: obj.maxContractLength,
       maxStartingSalary: obj.maxStartingSalary,
-      startingSalary: obj.startingSalary
+      startingSalary: obj.startingSalary,
+      signMethodSelected: true
     })
   }
 
@@ -143,11 +149,13 @@ class NewContract extends Component {
         season: '2018-2019',
         salary: salary,
         guaranteed_salary: salary,
-        player_option: this.state.playerOption,
-        team_option: this.state.teamOption,
+        player_option: false,
+        team_option: false
       }
       newContract.seasons.push(season)
     })
+    newContract.seasons[this.state.contractLength - 1].player_option = this.state.playerOption
+    newContract.seasons[this.state.contractLength - 1].team_option = this.state.teamOption
     return newContract
   }
 
@@ -158,12 +166,19 @@ class NewContract extends Component {
 
   render () {
 
+    let classes = []
+
+    if (this.state.startingSalary > this.state.maxStartingSalary) {
+      classes.push(styles.Validation)
+    }
+
     let totalContractAmount = 0
 
     let inputs = this.startingSalaryHandler(this.state.startingSalary, this.state.raises).map( (salary, i) => {
       if (i === 0) {
         totalContractAmount += salary
         return <div key={i}><input
+          className={classes.join(' ')}
           type="text"
           placeholder={salary}
           value={salary}
@@ -172,6 +187,7 @@ class NewContract extends Component {
       } else {
         totalContractAmount += salary
         return <div key={i}><input
+          className={classes.join(' ')}
           type="text"
           placeholder={salary}
           value={salary}
@@ -231,19 +247,21 @@ class NewContract extends Component {
             </div>
           </div>
 
-          <div>
-            <label>
-              Contract Length:
-              <select onChange={(event)=> this.contractLengthHandler(event)} value={this.state.contractLength}>
-                {/* <option value="0">Choose Contract Length</option> */}
-                <option value="1">1 year</option>
-                {this.state.maxContractLength > 1 && <option value="2">2 years</option> }
-                {this.state.maxContractLength > 2 && <option value="3">3 years</option> }
-                {this.state.maxContractLength > 3 && <option value="4">4 years</option> }
-                {this.state.maxContractLength > 4 && <option value="5">5 years</option> }
-              </select>
-            </label>
-          </div>
+
+          {this.state.signMethodSelected && <div>
+            <div>
+              <label>
+                Contract Length:
+                <select onChange={(event)=> this.contractLengthHandler(event)} value={this.state.contractLength}>
+                  {/* <option value="0">Choose Contract Length</option> */}
+                  <option value="1">1 year</option>
+                  {this.state.maxContractLength > 1 && <option value="2">2 years</option> }
+                  {this.state.maxContractLength > 2 && <option value="3">3 years</option> }
+                  {this.state.maxContractLength > 3 && <option value="4">4 years</option> }
+                  {this.state.maxContractLength > 4 && <option value="5">5 years</option> }
+                </select>
+              </label>
+            </div>
 
           {this.state.contractLength > 1 && <div>
             <label>
@@ -272,23 +290,33 @@ class NewContract extends Component {
 
           {inputs}
 
-          <div>Include a player option:<input
+
+
+          <div>Include a player option:
+            <input
             type="checkbox"
             id="player_option"
             name="player_option"
             checked={this.state.playerOption}
             value={this.state.playerOption}
             onChange={this.playerOptionHandler}
-          /></div>
-          <div>Include a team option:<input
+          />
+          </div>
+          <div>Include a team option:
+            <input
             type="checkbox"
             id="team_option"
             name="team_option"
             checked={this.state.teamOption}
             value="team_option"
             onChange={this.teamOptionHandler}
-          /></div>
-          <button onClick={()=> (this.saveContractToPlayer(), this.props.createNewContract(this.props.player, this.props.team))}>Sign {this.props.player.name} to a {this.state.contractLength} year / {helpers.formatMoney(totalContractAmount)} contract</button>
+            />
+          </div>
+        </div>}
+          {this.state.signMethodSelected && <button
+            onClick={()=> (this.saveContractToPlayer(), this.props.createNewContract(this.props.player, this.props.team), this.props.modalToggler(null, this.props.team))}
+            disabled={this.state.startingSalary > this.state.maxStartingSalary}
+            >Sign {this.props.player.name} to a {this.state.contractLength} year / {helpers.formatMoney(totalContractAmount)} contract</button>}
 
         </form>
       </Fragment>

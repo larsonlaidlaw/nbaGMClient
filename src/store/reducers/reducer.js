@@ -113,6 +113,7 @@ const reducer = (state = initialState, action) => {
           if (!team.targetAssets) {
             team.targetAssets =[]
           }
+          action.asset.newContract = true
           team.targetAssets.push(action.asset)
         }
       })
@@ -312,6 +313,7 @@ const reducer = (state = initialState, action) => {
           }
 
           action.freeAgent.team_id = action.team.id
+          action.freeAgent.newContract = true
           grabTeam.players.unshift(action.freeAgent)
 
           state.freeAgents = state.freeAgents.filter(player => player.id !== action.freeAgent.id)

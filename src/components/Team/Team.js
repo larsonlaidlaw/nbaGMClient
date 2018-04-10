@@ -155,9 +155,10 @@ const team = (props) => {
   return (
     <div className={classes.join(' ')}>
       {  showFeedback && <div><TransactionFeedback {...props}/></div>  }
-      <div onClick={(event)=> (console.log(event.target), props.modalToggler(null, props.team))}>
+      <div onClick={(event)=> props.modalToggler(null, props.team)}>
         <TeamHeader
           {...props}/>
+          
       </div>
       <TeamAssets
         {...props}

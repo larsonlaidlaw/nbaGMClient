@@ -2,6 +2,9 @@
 
 }
 
+.Validation {
+  border: 1px red solid;
+}
 .SignWithContainer {
   display: flex;
   flex-direction: row;

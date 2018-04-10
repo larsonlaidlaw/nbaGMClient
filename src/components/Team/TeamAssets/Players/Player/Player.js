@@ -78,9 +78,13 @@ class Player extends Component {
 
     let classes = [styles.Player]
 
-    // if (this.props.player.contracts[0].seasons[0].player_option) {
-    //   classes.push = styles.PlayerOption
-    // }
+    if (this.props.player.contracts[0].seasons[0].player_option || this.props.player.contracts[0].seasons[0].team_option) {
+      classes.push(styles.Option)
+    }
+
+    if (this.props.player.newContract){
+      classes.push(styles.NewAqcuisition)
+    }
 
     return (
       <div>

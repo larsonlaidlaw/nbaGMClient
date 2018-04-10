@@ -30,7 +30,7 @@ class SeasonInfo extends Component {
     return (
       <div className={styles.SeasonInfo}>
         {/* <div>{this.formatDate(this.props.appDate)}</div> */}
-        <DateSelect changeDate={this._changeDate}/>
+        <DateSelect changeDate={this._changeDate} appDate={this.props.appDate}/>
         <div>Season: {this.props.seasonInfo.season}</div>
         <div>Salary Cap: {helpers.formatMoney(this.props.seasonInfo.salaryCap)}</div>
         <div>Luxury Tax: {helpers.formatMoney(this.props.seasonInfo.luxuryTax)}</div>

@@ -24,14 +24,14 @@ class DateSelect extends Component {
             { value: 11, displayValue: 'December' }
           ]
         },
-        value: 3
+        value: this.props.appDate.getMonth()
       },
       date_id: {
         elementType: 'select',
         elementConfig: {
           options: [ { value: 1, displayValue: 1 } ]
         },
-        value: 2
+        value: this.props.appDate.getDate()
       },
       year_id: {
         elementType: 'select',
@@ -43,7 +43,7 @@ class DateSelect extends Component {
             { value: 2021, displayValue: '2021' }
           ]
         },
-        value: 2018
+        value: this.props.appDate.getFullYear()
       }
     }
   }

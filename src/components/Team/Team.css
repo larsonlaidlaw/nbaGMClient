@@ -9,6 +9,7 @@
   flex-direction: column;
   box-sizing: border-box;
   margin-bottom: 45px;
+  cursor: pointer;
 }
 
 .Team:first-child {
@@ -138,6 +139,7 @@
 .FreeAgents {
   background-color: red;
 }
+
 
 
 
