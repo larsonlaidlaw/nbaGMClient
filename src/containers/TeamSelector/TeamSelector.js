@@ -36,7 +36,9 @@ class TeamSelector extends Component {
         return <Team
           key={team.id}
           team={team}
+          tradeTeams={this.props.tradeTeams}
           initTradeTeamData={this.props.onInitTradeTeamData}
+          hideTeam={this.props.onHideTeam}
          />
       })
     }
@@ -54,7 +56,7 @@ class TeamSelector extends Component {
 const mapStateToProps = state => {
   return {
     allTeams: state.reducer.allTeams,
-    tradeTeamData: state.reducer.tradeTeamData
+    tradeTeams: state.reducer.tradeTeams
   }
 }
 
@@ -62,6 +64,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onLoadTeams: (teams)=> dispatch(actions.loadTeams(teams)),
     onInitTradeTeamData: (team)=> dispatch(actions.initTeamTradeData(team)),
+    onHideTeam: (team)=> dispatch(actions.hideTeam(team))
   }
 }
 

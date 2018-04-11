@@ -290,8 +290,6 @@ class NewContract extends Component {
 
           {inputs}
 
-
-
           <div>Include a player option:
             <input
             type="checkbox"

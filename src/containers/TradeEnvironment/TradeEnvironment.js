@@ -82,7 +82,7 @@ class TradeEnvironment extends Component {
     if (tradeTeams.length > 0) {
       renderTradeTeams = (
         tradeTeams.map((team)=> {
-          return <Team
+          return (!team.hide && <Team
             key={team.id}
             team={team}
             addAssetToTrade={this._addAssetToTrade}
@@ -103,7 +103,7 @@ class TradeEnvironment extends Component {
             declineTeamOption={this._declineTeamOption}
             createNewContract={this._createNewContract}
             tradeTeams={this.props.tradeTeams}
-          />
+          />)
         })
       )
     }

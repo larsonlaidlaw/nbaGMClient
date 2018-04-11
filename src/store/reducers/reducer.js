@@ -25,7 +25,6 @@ const reducer = (state = initialState, action) => {
   let grabPlayer
 
 
-
   if (action.player) {
     grabTeam = tradeTeams.filter(tradeTeam => tradeTeam.id === action.player.team_id)[0]
     grabPlayer = grabTeam.players.filter(player => player.id === action.player.id)[0]
@@ -46,34 +45,37 @@ const reducer = (state = initialState, action) => {
     case actionTypes.LOAD_TRADE_TEAM_DATA:
       const selectedTeam = action.team
 
-      if (state.seasonIndex > 0) {
-        selectedTeam.players.forEach(player => {
-          player.experience += 1
-          if (player.contracts[0].seasons.length <= state.seasonIndex) {
-            player.contracts[0].active = false
-            //should add this to the rails tables
-            player.contracts[0].previousSeasonSalary = player.contracts[0].seasons[0].salary
-            // player.contracts[0].cap_hold = player.contracts[0].seasons[0].salary
-            player.contracts[0].cap_hold = contractEndingHelpers.calculateCapHold(player)
-          }
-          player.contracts[0].seasons.splice(0,state.seasonIndex)
-        })
-      }
+      var found = false
 
-      var found = false;
-      for(var i = 0; i < state.tradeTeams.length; i++) {
-        if (state.tradeTeams[i].id === selectedTeam.id) {
+      for(var i = 0; i < tradeTeams.length; i++) {
+        if (tradeTeams[i].id === selectedTeam.id) {
           found = true;
           break;
+        }
+      }
+
+      if (found === false) {
+        if (state.seasonIndex > 0) {
+          selectedTeam.players.forEach(player => {
+            player.experience += 1
+            if (player.contracts[0].seasons.length <= state.seasonIndex) {
+              player.contracts[0].active = false
+              //should add this to the rails tables
+              player.contracts[0].previousSeasonSalary = player.contracts[0].seasons[0].salary
+              // player.contracts[0].cap_hold = player.contracts[0].seasons[0].salary
+              player.contracts[0].cap_hold = contractEndingHelpers.calculateCapHold(player)
+            }
+            player.contracts[0].seasons.splice(0,state.seasonIndex)
+          })
         }
       }
 
       let toAddOrRemove = null
 
       if (found) {
-        toAddOrRemove = state.tradeTeams.filter((team)=> team.id !== selectedTeam.id)
+        toAddOrRemove = tradeTeams
       } else {
-        toAddOrRemove = state.tradeTeams.concat(selectedTeam)
+        toAddOrRemove = tradeTeams.concat(selectedTeam)
       }
 
       return {
@@ -310,6 +312,11 @@ const reducer = (state = initialState, action) => {
 
           if (action.freeAgent.team_id === action.team.id) {
             grabTeam.players = grabTeam.players.filter(player => player.id !== action.freeAgent.id)
+          } else {
+            let oldTeam = tradeTeams.filter(team => team.id === action.freeAgent.team_id)[0]
+            console.log(oldTeam)
+            console.log(oldTeam.players)
+            oldTeam.players = oldTeam.players.filter(player => player.id !== action.freeAgent.id)
           }
 
           action.freeAgent.team_id = action.team.id
@@ -343,6 +350,28 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         freeAgents: freeAgentList
+      }
+
+      case actionTypes.HIDE_TEAM:
+      console.log(tradeTeams)
+
+      var found = false
+
+      for(var i = 0; i < state.tradeTeams.length; i++) {
+        if (tradeTeams[i].id === action.team.id) {
+          if (tradeTeams[i].hide) {
+            tradeTeams[i].hide = false
+          } else {
+            tradeTeams[i].hide = true
+          }
+          found = true;
+          break;
+        }
+      }
+
+      return {
+        ...state,
+        tradeTeams: tradeTeams
       }
 
     default:

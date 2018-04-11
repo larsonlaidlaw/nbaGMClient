@@ -136,3 +136,11 @@ export const createNewContract = (player, team) => {
     team: team
   }
 }
+
+export const hideTeam = (team) => {
+  console.log('hide team')
+  return {
+    type: actionTypes.HIDE_TEAM,
+    team: team
+  }
+}
