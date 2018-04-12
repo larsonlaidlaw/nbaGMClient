@@ -16,10 +16,10 @@ class SeasonInfo extends Component {
     this.props.onChangeDate(year, months, day)
     this.props.onSetSeason()
     this.props.onRemoveAllTradeTeams()
+    this.props.onInitFreeAgents()
     this.props.tradeTeams.forEach(team => {
       this.props.onInitTradeTeamData(team)
     })
-    this.props.onInitFreeAgents()
   }
 
 
