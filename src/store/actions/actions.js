@@ -144,3 +144,24 @@ export const hideTeam = (team) => {
     team: team
   }
 }
+
+// export const addTradeTeamFromFreeAgent = () => {
+//   return {
+//     type: actionTypes.ADD_TRADETEAM_FROM_FREE_AGENT
+//   }
+// }
+
+export const addTradeTeamFromFreeAgent = (freeAgent, team) => {
+  return dispatch => {
+    axios.get(`${BASE_URL}/teams/${freeAgent.team_id}`)
+    .then(response => {
+      dispatch(loadTradeTeamData(response.data))
+    })
+    .then(response => {
+      dispatch(createNewContract(freeAgent, team))
+    })
+    .catch( error => {
+      console.log(error)
+    })
+  }
+}

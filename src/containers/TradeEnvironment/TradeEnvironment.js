@@ -72,6 +72,10 @@ class TradeEnvironment extends Component {
     this.props.onCreateNewContract(player, team)
   }
 
+  _addTradeTeamFromFreeAgent = (freeAgent, team) => {
+    this.props.onAddTradeTeamFromFreeAgent(freeAgent, team)
+  }
+
   render () {
     const tradeTeams = this.props.tradeTeams
 
@@ -103,6 +107,7 @@ class TradeEnvironment extends Component {
             declineTeamOption={this._declineTeamOption}
             createNewContract={this._createNewContract}
             tradeTeams={this.props.tradeTeams}
+            addTradeTeamFromFreeAgent={this._addTradeTeamFromFreeAgent}
           />)
         })
       )
@@ -133,7 +138,8 @@ const mapDispatchToProps = dispatch => {
     onOptInPlayerContract: (player)=> dispatch(actions.optInPlayerContract(player)),
     onPickUpTeamOption: (player)=> dispatch(actions.pickUpTeamOption(player)),
     onDeclineTeamOption: (player)=> dispatch(actions.declineTeamOption(player)),
-    onCreateNewContract: (player, team)=> dispatch(actions.createNewContract(player, team))
+    onCreateNewContract: (player, team)=> dispatch(actions.createNewContract(player, team)),
+    onAddTradeTeamFromFreeAgent: (freeAgent, team)=> dispatch(actions.addTradeTeamFromFreeAgent(freeAgent, team))
   }
 }
 

@@ -312,7 +312,11 @@ class NewContract extends Component {
           </div>
         </div>}
           {this.state.signMethodSelected && <button
-            onClick={()=> (this.saveContractToPlayer(), this.props.createNewContract(this.props.player, this.props.team), this.props.modalToggler(null, this.props.team))}
+            onClick={()=> (
+              this.saveContractToPlayer(),
+              this.props.addTradeTeamFromFreeAgent(this.props.player, this.props.team),
+              // this.props.createNewContract(this.props.player, this.props.team),
+              this.props.modalToggler(null, this.props.team))}
             disabled={this.state.startingSalary > this.state.maxStartingSalary}
             >Sign {this.props.player.name} to a {this.state.contractLength} year / {helpers.formatMoney(totalContractAmount)} contract</button>}
 

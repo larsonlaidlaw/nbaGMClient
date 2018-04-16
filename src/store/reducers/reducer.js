@@ -309,6 +309,9 @@ const reducer = (state = initialState, action) => {
         }
 
         case actionTypes.CREATE_NEW_CONTRACT:
+        console.log(action.freeAgent.team_id)
+        console.log(action.team.id)
+        console.log(tradeTeams)
 
           if (action.freeAgent.team_id === action.team.id) {
             grabTeam.players = grabTeam.players.filter(player => player.id !== action.freeAgent.id)
