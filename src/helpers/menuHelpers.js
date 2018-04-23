@@ -1,5 +1,5 @@
 export const eligibleForExtension = (player) => {
-  if (true) {
+  if (false) {
     return true
   }
   return false
@@ -32,3 +32,7 @@ export const tradeEligible = (player) => {
   }
   return true
 }
+
+// extension
+
+// stuff

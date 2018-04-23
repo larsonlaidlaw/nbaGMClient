@@ -227,7 +227,6 @@ const reducer = (state = initialState, action) => {
 
       case actionTypes.CHANGE_DATE:
       console.log(action.year, action.month, action.day)
-      console.log(state.seasonIndex)
         const updatedAppDate = new Date(action.year, action.month, action.day)
         console.log(updatedAppDate)
 
@@ -336,19 +335,20 @@ const reducer = (state = initialState, action) => {
 
       case actionTypes.LOAD_FREE_AGENTS:
         let freeAgentList = action.freeAgents
+        console.log(freeAgentList)
 
-        if (state.seasonIndex > 0) {
-          freeAgentList.forEach(player => {
-            if (player.contracts[0].seasons.length <= state.seasonIndex) {
-              player.contracts[0].active = false
-              // player.contracts[0].cap_hold = player.contracts[0].seasons[0].salary
-            }
-            player.contracts[0].seasons.splice(0,state.seasonIndex)
-            player.experience += 1
-          })
-        }
-
-        freeAgentList = freeAgentList.filter( player => player.contracts[0].active  === false)
+        // if (state.seasonIndex > 0) {
+        //   freeAgentList.forEach(player => {
+        //     if (player.contracts[0].seasons.length <= state.seasonIndex) {
+        //       player.contracts[0].active = false
+        //       // player.contracts[0].cap_hold = player.contracts[0].seasons[0].salary
+        //     }
+        //     player.contracts[0].seasons.splice(0,state.seasonIndex)
+        //     player.experience += 1
+        //   })
+        // }
+        //
+        // freeAgentList = freeAgentList.filter( player => player.contracts[0].active  === false)
 
       return {
         ...state,

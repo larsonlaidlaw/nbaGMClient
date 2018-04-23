@@ -15,13 +15,13 @@ class SeasonInfo extends Component {
     event.preventDefault()
     this.props.onChangeDate(year, months, day)
     this.props.onSetSeason()
+    let seasonIndex = this.props.seasonIndex
     this.props.onRemoveAllTradeTeams()
-    this.props.onInitFreeAgents()
+    this.props.onInitFreeAgents(seasonIndex)
     this.props.tradeTeams.forEach(team => {
       this.props.onInitTradeTeamData(team)
     })
   }
-
 
   render (){
 
@@ -45,7 +45,8 @@ const mapStateToProps = state => {
   return {
     appDate: state.reducer.appDate,
     seasonInfo: state.reducer.seasonInfo,
-    tradeTeams: state.reducer.tradeTeams
+    tradeTeams: state.reducer.tradeTeams,
+    seasonIndex: state.reducer.seasonIndex
   }
 }
 
@@ -55,7 +56,7 @@ const mapDispatchToProps = dispatch => {
     onSetSeason: ()=> dispatch(actions.setSeason()),
     onRemoveAllTradeTeams: ()=> dispatch(actions.removeAllTradeTeams()),
     onInitTradeTeamData: (team)=> dispatch(actions.initTeamTradeData(team)),
-    onInitFreeAgents: ()=> dispatch(actions.initFreeAgents())
+    onInitFreeAgents: (seasonIndex)=> dispatch(actions.initFreeAgents(seasonIndex))
   }
 }
 
