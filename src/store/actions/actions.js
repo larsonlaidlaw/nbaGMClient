@@ -89,11 +89,11 @@ export const loadFreeAgents = (players) => {
 }
 
 export const initFreeAgents = (seasonIndex) => {
-  console.log('seasonIndex', seasonIndex);
+  console.log('seasonIndex from actions', seasonIndex);
   return dispatch => {
     axios.get(`${BASE_URL}/players/free_agents`, {
       params: {
-        seasonIndex: 1
+        seasonIndex: seasonIndex
       }
     })
     .then(response => {

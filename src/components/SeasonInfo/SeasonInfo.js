@@ -11,13 +11,21 @@ class SeasonInfo extends Component {
     return <div>{date.getMonth() + 1}/{date.getDate()}/{date.getFullYear()}</div>
   }
 
+  componentWillReceiveProps (nextProps) {
+
+    console.log('nextProps', nextProps);
+    console.log('this.props.seasonIndex', this.props.seasonIndex)
+    if (this.props.seasonIndex !== nextProps.seasonIndex) {
+      let seasonIndex = this.props.seasonIndex
+      this.props.onInitFreeAgents(nextProps.seasonIndex)
+    }
+  }
+
   _changeDate = (event, year, months, day) => {
     event.preventDefault()
     this.props.onChangeDate(year, months, day)
     this.props.onSetSeason()
-    let seasonIndex = this.props.seasonIndex
     this.props.onRemoveAllTradeTeams()
-    this.props.onInitFreeAgents(seasonIndex)
     this.props.tradeTeams.forEach(team => {
       this.props.onInitTradeTeamData(team)
     })
